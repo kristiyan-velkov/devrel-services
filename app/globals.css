@@ -1,6 +1,30 @@
 @import "tailwindcss";
 
-:root {
+:root,
+html[data-theme="light"] {
+  --bg: #f6f8fc;
+  --bg-raise: #eef2f9;
+  --fg: #141820;
+  --muted: #3d4658;
+  --faint: #5a6478;
+  --line: rgba(12, 61, 143, 0.14);
+  --card: rgba(255, 255, 255, 0.88);
+  --blue: #0c3d8f;
+  --blue-strong: #0c3d8f;
+  --mint: #0c6b42;
+  --mint-ink: #06281a;
+  --amber: #8a5a00;
+  --amber-ink: #2a1c04;
+  --ink: #141820;
+  --shadow: 0 20px 50px rgba(12, 61, 143, 0.1);
+  --btn-primary-fg: #ffffff;
+  --btn-primary-hover: #0a326f;
+  --selection-bg: #c8daf8;
+  --selection-fg: var(--ink);
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
   --bg: #070b14;
   --bg-raise: #10192b;
   --fg: #e8eef8;
@@ -16,11 +40,16 @@
   --amber-ink: #2a1c04;
   --ink: #07101c;
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  --btn-primary-fg: var(--ink);
+  --btn-primary-hover: #ffffff;
+  --selection-bg: #2c528b;
+  --selection-fg: #ffffff;
   color-scheme: dark;
 }
 
 @theme inline {
   --color-bg: var(--bg);
+  --color-bg-raise: var(--bg-raise);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
@@ -44,17 +73,17 @@ body {
   color: var(--fg);
   font-family: var(--font-sans);
   background-image:
-    radial-gradient(ellipse 90% 55% at 80% -10%, rgba(48, 104, 214, 0.22), transparent 55%),
-    radial-gradient(ellipse 45% 40% at -10% 20%, rgba(28, 74, 160, 0.16), transparent 50%),
-    linear-gradient(rgba(158, 196, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(158, 196, 255, 0.035) 1px, transparent 1px);
+    radial-gradient(ellipse 90% 55% at 80% -10%, rgba(48, 104, 214, 0.12), transparent 55%),
+    radial-gradient(ellipse 45% 40% at -10% 20%, rgba(28, 74, 160, 0.08), transparent 50%),
+    linear-gradient(rgba(12, 61, 143, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(12, 61, 143, 0.045) 1px, transparent 1px);
   background-size: auto, auto, 64px 64px, 64px 64px;
   background-attachment: fixed;
 }
 
 ::selection {
-  background: #2c528b;
-  color: #fff;
+  background: var(--selection-bg);
+  color: var(--selection-fg);
 }
 
 :focus-visible {
@@ -70,7 +99,7 @@ body {
   transform: translateY(-160%);
   border-radius: 999px;
   background: var(--blue-strong);
-  color: var(--ink);
+  color: var(--btn-primary-fg);
   padding: 0.6rem 1rem;
 }
 
@@ -85,16 +114,16 @@ body {
 
 .glass {
   background:
-    linear-gradient(180deg, rgba(22, 34, 58, 0.78), rgba(8, 14, 26, 0.72));
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 254, 0.86));
   border: 1px solid var(--line);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), var(--shadow);
   backdrop-filter: blur(16px);
 }
 
 .hero-scrim {
   background:
-    linear-gradient(90deg, rgba(7, 11, 20, 0.94) 0%, rgba(7, 11, 20, 0.78) 46%, rgba(7, 11, 20, 0.2) 100%),
-    linear-gradient(180deg, rgba(7, 11, 20, 0.45), transparent 22%, rgba(7, 11, 20, 0.92));
+    linear-gradient(90deg, rgba(246, 248, 252, 0.94) 0%, rgba(246, 248, 252, 0.78) 46%, rgba(246, 248, 252, 0.18) 100%),
+    linear-gradient(180deg, rgba(246, 248, 252, 0.5), transparent 22%, rgba(246, 248, 252, 0.9));
 }
 
 .plan-card {
@@ -107,11 +136,47 @@ body {
 .plan-card:hover,
 .plan-card:focus-within {
   transform: translateY(-8px);
+  border-color: rgba(12, 61, 143, 0.28);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.plan-card.is-recommended {
+  border-color: rgba(12, 61, 143, 0.35);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(232, 240, 255, 0.92));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 0 0 1px rgba(12, 61, 143, 0.12),
+    0 24px 80px rgba(36, 92, 210, 0.12);
+}
+
+html[data-theme="dark"] body {
+  background-image:
+    radial-gradient(ellipse 90% 55% at 80% -10%, rgba(48, 104, 214, 0.22), transparent 55%),
+    radial-gradient(ellipse 45% 40% at -10% 20%, rgba(28, 74, 160, 0.16), transparent 50%),
+    linear-gradient(rgba(158, 196, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(158, 196, 255, 0.035) 1px, transparent 1px);
+}
+
+html[data-theme="dark"] .glass {
+  background:
+    linear-gradient(180deg, rgba(22, 34, 58, 0.78), rgba(8, 14, 26, 0.72));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+html[data-theme="dark"] .hero-scrim {
+  background:
+    linear-gradient(90deg, rgba(7, 11, 20, 0.94) 0%, rgba(7, 11, 20, 0.78) 46%, rgba(7, 11, 20, 0.2) 100%),
+    linear-gradient(180deg, rgba(7, 11, 20, 0.45), transparent 22%, rgba(7, 11, 20, 0.92));
+}
+
+html[data-theme="dark"] .plan-card:hover,
+html[data-theme="dark"] .plan-card:focus-within {
   border-color: rgba(180, 208, 255, 0.45);
   box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
-.plan-card.is-recommended {
+html[data-theme="dark"] .plan-card.is-recommended {
   border-color: rgba(170, 204, 255, 0.62);
   background:
     linear-gradient(180deg, rgba(28, 52, 96, 0.88), rgba(8, 16, 32, 0.82));

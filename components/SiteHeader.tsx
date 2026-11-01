@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Mark } from "@/components/Mark";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { buttonClass } from "@/lib/buttons";
 import { mailtoForPlan } from "@/data/proposal";
 import { cn } from "@/lib/cn";
@@ -18,7 +19,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="no-print sticky top-0 z-40 border-b border-line/80 bg-[#070b14]/80 backdrop-blur-md">
+    <header className="no-print sticky top-0 z-40 border-b border-line/80 bg-card/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 md:px-8">
         <a href="#top" className="flex items-center gap-2 text-fg">
           <Mark className="h-6 w-6 text-blue" />
@@ -35,6 +36,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
+          <ThemeSwitcher />
           <a href={mailtoForPlan("growth")} className={cn(buttonClass("primary"), "hidden sm:inline-flex")}>
             Choose Plan 2
           </a>
@@ -59,14 +61,15 @@ export function SiteHeader() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="block rounded-lg px-2 py-3 text-fg hover:bg-white/5"
+                  className="block rounded-lg px-2 py-3 text-fg hover:bg-ink/5"
                   onClick={() => setOpen(false)}
                 >
                   {link.label}
                 </a>
               </li>
             ))}
-            <li className="pt-2">
+            <li className="flex items-center gap-2 pt-2">
+              <ThemeSwitcher />
               <a href={mailtoForPlan("growth")} className={buttonClass("primary")}>
                 Choose Plan 2
               </a>

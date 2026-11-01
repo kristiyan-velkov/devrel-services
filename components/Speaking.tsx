@@ -121,14 +121,14 @@ export function Speaking() {
                   >
                     <span
                       className={cn(
-                        "block h-3.5 w-3.5 rounded-full border border-white/80",
+                        "block h-3.5 w-3.5 rounded-full border border-ink/25",
                         selected ? "bg-mint" : "bg-blue group-hover:bg-[var(--blue-strong)]",
                       )}
                     />
                     <span
                       aria-hidden="true"
                       className={cn(
-                        "pointer-events-none absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded-full bg-[#06101c] px-2 py-0.5 font-mono text-[11px] whitespace-nowrap text-fg",
+                        "pointer-events-none absolute bottom-full left-1/2 mb-1 -translate-x-1/2 rounded-full bg-ink px-2 py-0.5 font-mono text-[11px] whitespace-nowrap text-bg",
                         selected ? "opacity-100" : "opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100",
                       )}
                     >
@@ -179,7 +179,7 @@ export function Speaking() {
               aria-pressed={filter === id}
               className={cn(
                 "min-h-11 rounded-full border px-4 text-sm",
-                filter === id ? "border-blue bg-white/10 text-fg" : "border-line text-muted",
+                filter === id ? "border-blue bg-ink/8 text-fg" : "border-line text-muted",
               )}
               onClick={() => setFilter(id)}
             >

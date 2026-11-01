@@ -16,6 +16,33 @@ function spherePoints(count: number): Point[] {
   return points;
 }
 
+function isDarkTheme() {
+  return document.documentElement.getAttribute("data-theme") === "dark";
+}
+
+function globePalette(dark: boolean) {
+  if (dark) {
+    return {
+      glow: ["rgba(70, 130, 255, 0.18)", "rgba(40, 90, 200, 0.05)", "rgba(0, 0, 0, 0)"],
+      ring: "rgba(150, 186, 255, 0.16)",
+      edge: (depth: number) => `rgba(140, 186, 255, ${0.04 + Math.max(0, depth) * 0.32})`,
+      node: (hub: boolean, z: number, depth: number) =>
+        hub ? `rgba(190, 255, 230, ${0.45 + z * 0.55})` : `rgba(226, 236, 255, ${0.2 + Math.max(0, z) * 0.8})`,
+      packet: "rgba(214, 255, 236, 0.95)",
+      outline: "rgba(176, 208, 255, 0.35)",
+    };
+  }
+  return {
+    glow: ["rgba(48, 104, 214, 0.22)", "rgba(40, 90, 200, 0.08)", "rgba(0, 0, 0, 0)"],
+    ring: "rgba(12, 61, 143, 0.14)",
+    edge: (depth: number) => `rgba(12, 61, 143, ${0.06 + Math.max(0, depth) * 0.28})`,
+    node: (hub: boolean, z: number, depth: number) =>
+      hub ? `rgba(12, 107, 66, ${0.55 + z * 0.45})` : `rgba(12, 61, 143, ${0.25 + Math.max(0, z) * 0.65})`,
+    packet: "rgba(12, 107, 66, 0.85)",
+    outline: "rgba(12, 61, 143, 0.35)",
+  };
+}
+
 function rotate(point: Point, ay: number): Point {
   const cy = Math.cos(ay);
   const sy = Math.sin(ay);
@@ -80,14 +107,15 @@ export function ProxyGlobe() {
     };
 
     const paint = () => {
+      const palette = globePalette(isDarkTheme());
       context.clearRect(0, 0, width, height);
       const originX = width * 0.7;
       const originY = height * 0.46;
       const radius = Math.min(width, height) * 0.4;
       const glow = context.createRadialGradient(originX, originY, radius * 0.15, originX, originY, radius * 1.45);
-      glow.addColorStop(0, "rgba(70, 130, 255, 0.18)");
-      glow.addColorStop(0.5, "rgba(40, 90, 200, 0.05)");
-      glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+      glow.addColorStop(0, palette.glow[0]!);
+      glow.addColorStop(0.5, palette.glow[1]!);
+      glow.addColorStop(1, palette.glow[2]!);
       context.fillStyle = glow;
       context.beginPath();
       context.arc(originX, originY, radius * 1.45, 0, Math.PI * 2);
@@ -96,7 +124,7 @@ export function ProxyGlobe() {
       const projected = nodes.map((node) => screenOf(rotate(node, angle)));
 
       context.lineWidth = 1;
-      context.strokeStyle = "rgba(150, 186, 255, 0.16)";
+      context.strokeStyle = palette.ring;
       const strokeRing = (samples: Point[]) => {
         let open = false;
         context.beginPath();
@@ -150,7 +178,7 @@ export function ProxyGlobe() {
         const b = projected[to];
         if (!a || !b || (a.z < -0.2 && b.z < -0.2)) continue;
         const depth = (a.z + b.z) / 2;
-        context.strokeStyle = `rgba(140, 186, 255, ${0.04 + Math.max(0, depth) * 0.32})`;
+        context.strokeStyle = palette.edge(depth);
         context.beginPath();
         context.moveTo(a.x, a.y);
         context.lineTo(b.x, b.y);
@@ -160,7 +188,7 @@ export function ProxyGlobe() {
       projected.forEach((point, index) => {
         if (point.z < -0.15) return;
         const hub = index % 13 === 0;
-        context.fillStyle = hub ? `rgba(190, 255, 230, ${0.45 + point.z * 0.55})` : `rgba(226, 236, 255, ${0.2 + Math.max(0, point.z) * 0.8})`;
+        context.fillStyle = palette.node(hub, point.z, point.depth);
         context.beginPath();
         context.arc(point.x, point.y, (hub ? 2.5 : 1.35) * point.depth, 0, Math.PI * 2);
         context.fill();
@@ -186,14 +214,14 @@ export function ProxyGlobe() {
             ),
           );
           if (point.z < 0) continue;
-          context.fillStyle = "rgba(214, 255, 236, 0.95)";
+          context.fillStyle = palette.packet;
           context.beginPath();
           context.arc(point.x, point.y, 2.3, 0, Math.PI * 2);
           context.fill();
         }
       }
 
-      context.strokeStyle = "rgba(176, 208, 255, 0.35)";
+      context.strokeStyle = palette.outline;
       context.lineWidth = 1.25;
       context.beginPath();
       context.arc(originX, originY, radius, 0, Math.PI * 2);
@@ -208,6 +236,13 @@ export function ProxyGlobe() {
     };
 
     resize();
+    const themeObserver = new MutationObserver(() => {
+      paint();
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(canvas);
     const intersection = new IntersectionObserver(([entry]) => {
@@ -222,6 +257,7 @@ export function ProxyGlobe() {
 
     return () => {
       cancelAnimationFrame(frame);
+      themeObserver.disconnect();
       resizeObserver.disconnect();
       intersection.disconnect();
     };

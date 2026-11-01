@@ -128,7 +128,7 @@ export function Plans() {
                       {quote.valuePerEuro.toFixed(2)} list per €1
                     </p>
                   )}
-                  <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10" aria-hidden="true">
+                  <div className="mt-3 h-1 overflow-hidden rounded-full bg-ink/10" aria-hidden="true">
                     <div
                       className={cn("h-full rounded-full", plan.recommended ? "bg-mint" : "bg-blue")}
                       style={{ width: `${(quote.valuePerEuro / maxValue) * 100}%` }}
@@ -162,9 +162,9 @@ export function Plans() {
             <caption className="sr-only">
               Comparison of Plan 1 Core, Plan 2 Growth, Plan 3 Pro and Plan 4 Elite for November 2026 to March 2027
             </caption>
-            <thead className="bg-[#0d1728] font-mono text-[11px] tracking-wide text-faint uppercase">
+            <thead className="bg-bg-raise font-mono text-[11px] tracking-wide text-faint uppercase">
               <tr>
-                <th scope="col" className="sticky left-0 bg-[#0d1728] px-4 py-3 font-medium">Included over 5 months</th>
+                <th scope="col" className="sticky left-0 bg-bg-raise px-4 py-3 font-medium">Included over 5 months</th>
                 <th scope="col" className="px-3 py-3 font-medium">List</th>
                 {planOrder.map((id) => {
                   const plan = plans.find((item) => item.id === id);
@@ -181,7 +181,7 @@ export function Plans() {
                 const price = serviceById(line.serviceId).price;
                 return (
                   <tr key={line.id} className="border-t border-line">
-                    <th scope="row" className="sticky left-0 bg-[#0b1322] px-4 py-3 font-medium text-fg">
+                    <th scope="row" className="sticky left-0 bg-bg px-4 py-3 font-medium text-fg">
                       {line.label}
                       <span className="mt-0.5 block font-normal text-faint">{serviceById(line.serviceId).unit}</span>
                     </th>
@@ -196,7 +196,7 @@ export function Plans() {
               })}
               {includedInEveryPlan.map((row) => (
                 <tr key={row.label} className="border-t border-line">
-                  <th scope="row" className="sticky left-0 bg-[#0b1322] px-4 py-3 font-medium">{row.label}</th>
+                  <th scope="row" className="sticky left-0 bg-bg px-4 py-3 font-medium">{row.label}</th>
                   <td className="px-3 py-3 text-faint">—</td>
                   {planOrder.map((id) => (
                     <td key={id} className="px-3 py-3 text-fg">{row.value}</td>
@@ -204,7 +204,7 @@ export function Plans() {
                 </tr>
               ))}
             </tbody>
-            <tfoot className="border-t border-line bg-[#0d1728] font-medium">
+            <tfoot className="border-t border-line bg-bg-raise font-medium">
               <MoneyRow label="List value" pick={(id) => formatEur(quotes[id].list)} />
               <MoneyRow label="Price per month" pick={(id) => formatEur(quotes[id].monthly)} />
               <MoneyRow label="Price for 5 months" pick={(id) => formatEur(quotes[id].term)} emphasize />
@@ -236,7 +236,7 @@ function MoneyRow({
 }) {
   return (
     <tr className="border-t border-line">
-      <th scope="row" className="sticky left-0 bg-[#0d1728] px-4 py-3 text-left">{label}</th>
+      <th scope="row" className="sticky left-0 bg-bg-raise px-4 py-3 text-left">{label}</th>
       <td className="px-3 py-3" />
       {planOrder.map((id) => (
         <td key={id} className={cn("px-3 py-3 tabular-nums", emphasize && id === "growth" && "text-blue")}>

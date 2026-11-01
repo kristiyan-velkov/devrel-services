@@ -24,7 +24,7 @@ export function Agreement() {
               </p>
               <p className="mt-2 text-muted">{agreement.pilot}</p>
             </div>
-            <div className="rounded-2xl border border-line bg-black/20 p-5">
+            <div className="rounded-2xl border border-line bg-ink/5 p-5">
               <p className="kicker">Monthly retainer</p>
               <p className="mt-2 font-display text-4xl tabular-nums">{formatEur(agreement.monthly)}</p>
               <p className="mt-1 text-sm text-muted">{agreement.months} months · Oct, Nov, Dec 2026</p>

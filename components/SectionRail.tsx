@@ -48,7 +48,7 @@ export function SectionRail() {
               >
                 <span
                   className={cn(
-                    "h-px bg-white/30 transition-[width] duration-300",
+                    "h-px bg-ink/20 transition-[width] duration-300",
                     current ? "w-8 bg-blue" : "w-4 group-hover:w-6",
                   )}
                 />

@@ -55,7 +55,7 @@ export function Why() {
               not just read about Bright Data.
             </p>
           </Reveal>
-          <Reveal className="rounded-3xl border border-line bg-[#0c1628] p-6 md:col-span-6">
+          <Reveal className="rounded-3xl border border-line bg-bg-raise p-6 md:col-span-6">
             <p className="kicker">Exclusivity, included</p>
             <p className="mt-3 max-w-3xl text-muted">
               No paid promotion of these competitors for the term of the agreement:
