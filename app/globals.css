@@ -1,0 +1,305 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #070b14;
+  --bg-raise: #10192b;
+  --fg: #e8eef8;
+  --muted: #b4c0d4;
+  --faint: #93a3bb;
+  --line: rgba(168, 196, 255, 0.18);
+  --card: rgba(12, 20, 36, 0.78);
+  --blue: #9ec4ff;
+  --blue-strong: #d7e6ff;
+  --mint: #b6f3d4;
+  --mint-ink: #06281a;
+  --amber: #f6d48a;
+  --amber-ink: #2a1c04;
+  --ink: #07101c;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-card: var(--card);
+  --color-blue: var(--blue);
+  --color-mint: var(--mint);
+  --color-amber: var(--amber);
+  --color-ink: var(--ink);
+  --font-sans: var(--font-bricolage), "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: var(--font-bricolage), "Avenir Next", "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
+}
+
+html {
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  background-image:
+    radial-gradient(ellipse 90% 55% at 80% -10%, rgba(48, 104, 214, 0.22), transparent 55%),
+    radial-gradient(ellipse 45% 40% at -10% 20%, rgba(28, 74, 160, 0.16), transparent 50%),
+    linear-gradient(rgba(158, 196, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(158, 196, 255, 0.035) 1px, transparent 1px);
+  background-size: auto, auto, 64px 64px, 64px 64px;
+  background-attachment: fixed;
+}
+
+::selection {
+  background: #2c528b;
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 50;
+  transform: translateY(-160%);
+  border-radius: 999px;
+  background: var(--blue-strong);
+  color: var(--ink);
+  padding: 0.6rem 1rem;
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+}
+
+.glass {
+  background:
+    linear-gradient(180deg, rgba(22, 34, 58, 0.78), rgba(8, 14, 26, 0.72));
+  border: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+}
+
+.hero-scrim {
+  background:
+    linear-gradient(90deg, rgba(7, 11, 20, 0.94) 0%, rgba(7, 11, 20, 0.78) 46%, rgba(7, 11, 20, 0.2) 100%),
+    linear-gradient(180deg, rgba(7, 11, 20, 0.45), transparent 22%, rgba(7, 11, 20, 0.92));
+}
+
+.plan-card {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.plan-card:hover,
+.plan-card:focus-within {
+  transform: translateY(-8px);
+  border-color: rgba(180, 208, 255, 0.45);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.plan-card.is-recommended {
+  border-color: rgba(170, 204, 255, 0.62);
+  background:
+    linear-gradient(180deg, rgba(28, 52, 96, 0.88), rgba(8, 16, 32, 0.82));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 0 1px rgba(120, 170, 255, 0.2),
+    0 24px 80px rgba(36, 92, 210, 0.22);
+}
+
+.badge-mint {
+  background: #b6f3d4;
+  color: #06281a;
+}
+
+.badge-blue {
+  background: #d7e6ff;
+  color: #07101c;
+}
+
+.badge-amber {
+  background: #f6d48a;
+  color: #2a1c04;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .typed-cmd {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: bottom;
+    max-width: 100%;
+    animation: typing 1.35s steps(40, end) both;
+  }
+
+  .term-line {
+    opacity: 0;
+    animation: term-in 0.45s ease forwards;
+  }
+
+  .caret::after {
+    content: "▍";
+    margin-left: 0.2rem;
+    color: var(--mint);
+    animation: blink 1.05s steps(1, end) infinite;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 40ch;
+  }
+}
+
+@keyframes term-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .typed-cmd {
+    width: auto;
+    overflow: visible;
+    white-space: normal;
+    animation: none;
+  }
+
+  .typed-cmd.caret::after {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .plan-card,
+  .plan-card:hover,
+  .plan-card:focus-within {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media print {
+  :root {
+    --bg: #ffffff;
+    --fg: #141820;
+    --muted: #2c3444;
+    --faint: #3d4658;
+    --line: #d5dbe6;
+    --card: #ffffff;
+    --blue: #0c3d8f;
+    --blue-strong: #0c3d8f;
+    --mint: #0c6b42;
+    --amber: #8a5a00;
+    --ink: #141820;
+    color-scheme: light;
+  }
+
+  body {
+    background: #fff !important;
+    background-image: none !important;
+    color: #141820;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .glass,
+  .plan-card,
+  .plan-card.is-recommended {
+    background: #fff !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    border-color: #cfd6e2 !important;
+  }
+
+  .print-all[hidden] {
+    display: block !important;
+  }
+
+  .print-all-grid[hidden] {
+    display: grid !important;
+  }
+
+  a.print-url[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+
+  h2,
+  h3 {
+    break-after: avoid;
+  }
+
+  tr,
+  .avoid-break {
+    break-inside: avoid;
+  }
+
+  .print-break {
+    break-before: page;
+  }
+
+  .compare-scroll {
+    overflow: visible !important;
+  }
+
+  .compare-table {
+    min-width: 0 !important;
+    width: 100% !important;
+    font-size: 9px;
+  }
+
+  .compare-table th,
+  .compare-table td {
+    background: #fff !important;
+    color: #141820 !important;
+  }
+
+  @page {
+    margin: 12mm;
+    size: A4;
+  }
+}
