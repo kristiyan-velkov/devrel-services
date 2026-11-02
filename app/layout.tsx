@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import { meta } from "@/data/proposal";
 import { siteUrl } from "@/lib/site";
+import { DEFAULT_THEME, THEME_STORAGE_KEY, themeColor } from "@/lib/theme";
 import "./globals.css";
+
+const themeBootScript = `(function(){try{var k=${JSON.stringify(THEME_STORAGE_KEY)};var t=localStorage.getItem(k);var theme=t==="dark"||t==="light"?t:${JSON.stringify(DEFAULT_THEME)};document.documentElement.setAttribute("data-theme",theme);}catch(e){document.documentElement.setAttribute("data-theme",${JSON.stringify(DEFAULT_THEME)});}})();`;
 
 const display = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -39,8 +43,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#070b14",
-  colorScheme: "dark",
+  themeColor: themeColor(DEFAULT_THEME),
+  colorScheme: "light dark",
   width: "device-width",
   initialScale: 1,
 };
@@ -50,8 +54,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       className={`${display.variable} h-full antialiased`}
+      data-theme={DEFAULT_THEME}
+      suppressHydrationWarning
     >
-      <body className="min-h-full font-sans text-fg">{children}</body>
+      <head>
+        <script id="theme-init" dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+      </head>
+      <body className="min-h-full font-sans text-fg">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }

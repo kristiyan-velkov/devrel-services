@@ -18,7 +18,7 @@ export function SectionHeading({
       <p className="kicker">
         {index} / {kicker}
       </p>
-      <h2 id={id} className="mt-3 font-display text-4xl leading-[1.05] text-fg sm:text-5xl">
+      <h2 id={id} className="mt-3 scroll-mt-28 font-display text-4xl leading-[1.05] text-fg sm:text-5xl">
         {title}
       </h2>
       {lede ? <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{lede}</p> : null}

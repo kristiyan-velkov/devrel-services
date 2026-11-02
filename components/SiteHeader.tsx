@@ -1,42 +1,53 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Mark } from "@/components/Mark";
+import { BulgariTechLogo } from "@/components/BulgariTechLogo";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { buttonClass } from "@/lib/buttons";
-import { mailtoForPlan } from "@/data/proposal";
+import { navLinkIsActive, primaryNav } from "@/lib/navigation";
+import { socialLinks } from "@/data/proposal";
 import { cn } from "@/lib/cn";
-
-const links = [
-  { href: "#why", label: "Why Kristiyan" },
-  { href: "#speaking", label: "Stage" },
-  { href: "#plans", label: "Plans" },
-  { href: "#publishing", label: "Calendar" },
-  { href: "#terms", label: "Terms" },
-];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
-    <header className="no-print sticky top-0 z-40 border-b border-line/80 bg-[#070b14]/80 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 md:px-8">
-        <a href="#top" className="flex items-center gap-2 text-fg">
-          <Mark className="h-6 w-6 text-blue" />
-          <span className="font-display text-lg leading-none">
-            Bulgari<span className="text-blue">Tech</span>
-          </span>
-          <span className="sr-only">Back to top</span>
+    <header className="no-print sticky top-0 z-40 border-b border-line/80 bg-card/90 backdrop-blur-md">
+      <div className="site-wrap flex items-center justify-between gap-4 px-5 py-3 md:px-8">
+        <a
+          href="/"
+          className="flex min-w-0 items-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"
+        >
+          <BulgariTechLogo className="h-7 max-w-[11rem] sm:h-8" />
+          <span className="sr-only">BulgariTech — proposal home</span>
         </a>
         <nav aria-label="Proposal" className="hidden items-center gap-5 lg:flex">
-          {links.map((link) => (
-            <a key={link.href} href={link.href} className="text-sm text-muted hover:text-fg">
-              {link.label}
-            </a>
-          ))}
+          {primaryNav.map((link) => {
+            const active = navLinkIsActive(pathname, link);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                aria-current={active ? "page" : undefined}
+                className={cn("text-sm", active ? "text-fg" : "text-muted hover:text-fg")}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
         <div className="flex items-center gap-2">
-          <a href={mailtoForPlan("growth")} className={cn(buttonClass("primary"), "hidden sm:inline-flex")}>
-            Choose Plan 2
+          <ThemeSwitcher />
+          <a
+            href={socialLinks.linkedin.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(buttonClass("primary"), "hidden sm:inline-flex")}
+          >
+            Contact me
           </a>
           <button
             type="button"
@@ -55,20 +66,33 @@ export function SiteHeader() {
       {open ? (
         <nav id="mobile-nav" aria-label="Proposal" className="border-t border-line px-5 py-4 lg:hidden">
           <ul className="flex flex-col gap-1">
-            {links.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="block rounded-lg px-2 py-3 text-fg hover:bg-white/5"
-                  onClick={() => setOpen(false)}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-            <li className="pt-2">
-              <a href={mailtoForPlan("growth")} className={buttonClass("primary")}>
-                Choose Plan 2
+            {primaryNav.map((link) => {
+              const active = navLinkIsActive(pathname, link);
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "block rounded-lg px-2 py-3",
+                      active ? "bg-surface-muted text-fg" : "text-fg hover:bg-surface-subtle",
+                    )}
+                    onClick={() => setOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+            <li className="flex items-center gap-2 pt-2">
+              <ThemeSwitcher />
+              <a
+                href={socialLinks.linkedin.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonClass("primary")}
+              >
+                Contact me
               </a>
             </li>
           </ul>

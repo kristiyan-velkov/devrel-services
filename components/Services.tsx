@@ -9,6 +9,7 @@ import {
   type Service,
   type ServiceCategory,
 } from "@/data/proposal";
+import { buttonClass } from "@/lib/buttons";
 import { cn } from "@/lib/cn";
 
 function matches(service: Service, category: ServiceCategory | "all", needle: string) {
@@ -24,15 +25,24 @@ export function Services() {
   const visible = services.filter((service) => matches(service, category, needle)).length;
 
   return (
-    <section id="services" className="print-break scroll-mt-28 py-20 md:py-28" aria-labelledby="services-title">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <section id="services" className="scroll-mt-28 py-20 md:py-28" aria-labelledby="services-title">
+      <div className="site-wrap px-5 md:px-8">
         <SectionHeading
           id="services-title"
-          index="05"
+          index="01"
           kicker="À la carte"
           title="Buy a single piece, or read the list behind the plans."
-          lede="These are the prices used to calculate list value. Anything outside the chosen plan needs written approval before it starts. The PDF always prints the full catalogue."
+          lede="These are the prices used to calculate list value. Anything outside the chosen plan needs written approval before it starts. Use the calculator below to set quantities and export a PDF of your mix."
         />
+
+        <nav className="no-print mt-8 flex flex-wrap gap-2" aria-label="On this page">
+          <a href="#services" className={buttonClass("ghost")} aria-current="page">
+            Catalogue
+          </a>
+          <a href="#calculator" className={buttonClass("primary")}>
+            Custom mix
+          </a>
+        </nav>
 
         <div className="mt-8 flex flex-col gap-4">
           <label className="block max-w-md">
@@ -42,7 +52,7 @@ export function Services() {
               onChange={(event) => setQuery(event.target.value)}
               type="search"
               placeholder="Article, hackathon, banner…"
-              className="mt-2 min-h-11 w-full rounded-2xl border border-line bg-black/20 px-4 text-fg placeholder:text-faint"
+              className="mt-2 min-h-11 w-full rounded-2xl border border-line bg-surface-subtle px-4 text-fg placeholder:text-faint"
             />
           </label>
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
@@ -96,6 +106,11 @@ export function Services() {
             Nothing in the catalogue matches that filter.
           </p>
         ) : null}
+        <p className="mt-8">
+          <a href="#calculator" className="text-sm font-medium text-blue hover:underline">
+            Build a custom quote with quantities →
+          </a>
+        </p>
       </div>
     </section>
   );
@@ -117,7 +132,7 @@ function FilterChip({
       onClick={onClick}
       className={cn(
         "min-h-11 rounded-full border px-3 text-sm",
-        active ? "border-blue bg-white/10 text-fg" : "border-line text-muted",
+        active ? "chip-active" : "border-line text-muted",
       )}
     >
       {children}

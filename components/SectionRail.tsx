@@ -4,18 +4,13 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/cn";
 
 const links = [
-  { id: "why", index: "01", label: "Why Kristiyan" },
-  { id: "speaking", index: "02", label: "Speaking" },
-  { id: "agreement", index: "03", label: "Agreement" },
-  { id: "plans", index: "04", label: "Plans" },
-  { id: "services", index: "05", label: "À la carte" },
-  { id: "publishing", index: "06", label: "Calendar" },
-  { id: "bonus", index: "07", label: "Bonus" },
-  { id: "terms", index: "08", label: "Terms" },
+  { id: "top", index: "—", label: "Overview" },
+  { id: "speaking", index: "01", label: "Speaking" },
+  { id: "start", index: "02", label: "Next step" },
 ];
 
 export function SectionRail() {
-  const [active, setActive] = useState("why");
+  const [active, setActive] = useState("top");
 
   useEffect(() => {
     const nodes = links
@@ -48,7 +43,7 @@ export function SectionRail() {
               >
                 <span
                   className={cn(
-                    "h-px bg-white/30 transition-[width] duration-300",
+                    "h-px bg-surface-rail transition-[width] duration-300",
                     current ? "w-8 bg-blue" : "w-4 group-hover:w-6",
                   )}
                 />
