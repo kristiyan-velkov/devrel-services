@@ -10,7 +10,8 @@ export function SiteFooter() {
           Proposal for {identity.counterparty} · {identity.dateLabel}
         </p>
         <p className="max-w-md md:text-right">
-          A commercial proposal from BulgariTech. Not an official Bright Data website, product page or endorsement.
+          Personal proposal from {identity.person} ({identity.company}). Not an official Bright Data
+          website, product page or endorsement.
         </p>
       </div>
     </footer>

@@ -8,10 +8,10 @@ export function Agreement() {
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <SectionHeading
           id="agreement-title"
-          index="03"
+          index="01"
           kicker="Current agreement"
           title="Plan 1 starts from what is already signed."
-          lede="The pilot is the baseline. Plan 1 keeps the same monthly rate and scales the quantities to five months."
+          lede="The pilot is the baseline. Plan 1 is this signed scope at the same monthly rate — not a scaled-up 5-month list."
         />
         <Reveal className="glass mt-10 overflow-hidden rounded-3xl">
           <div className="grid gap-6 border-b border-line p-6 md:grid-cols-[1.4fr_0.8fr] md:p-8">
@@ -24,7 +24,7 @@ export function Agreement() {
               </p>
               <p className="mt-2 text-muted">{agreement.pilot}</p>
             </div>
-            <div className="rounded-2xl border border-line bg-ink/5 p-5">
+            <div className="rounded-2xl border border-line bg-surface-subtle p-5">
               <p className="kicker">Monthly retainer</p>
               <p className="mt-2 font-display text-4xl tabular-nums">{formatEur(agreement.monthly)}</p>
               <p className="mt-1 text-sm text-muted">{agreement.months} months · Oct, Nov, Dec 2026</p>

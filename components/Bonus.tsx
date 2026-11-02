@@ -8,7 +8,7 @@ export function Bonus() {
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <SectionHeading
           id="bonus-title"
-          index="07"
+          index="04"
           kicker="If you choose by 15 Nov"
           title="Plan 2 or higher, before the window closes."
           lede={`Choose Plan 2 or higher by ${bonus.deadlineLabel} and three things come with it. The India stage is the same month.`}

@@ -28,7 +28,7 @@ export function Services() {
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <SectionHeading
           id="services-title"
-          index="05"
+          index="03"
           kicker="À la carte"
           title="Buy a single piece, or read the list behind the plans."
           lede="These are the prices used to calculate list value. Anything outside the chosen plan needs written approval before it starts. The PDF always prints the full catalogue."
@@ -42,7 +42,7 @@ export function Services() {
               onChange={(event) => setQuery(event.target.value)}
               type="search"
               placeholder="Article, hackathon, banner…"
-              className="mt-2 min-h-11 w-full rounded-2xl border border-line bg-ink/5 px-4 text-fg placeholder:text-faint"
+              className="mt-2 min-h-11 w-full rounded-2xl border border-line bg-surface-subtle px-4 text-fg placeholder:text-faint"
             />
           </label>
           <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
@@ -117,7 +117,7 @@ function FilterChip({
       onClick={onClick}
       className={cn(
         "min-h-11 rounded-full border px-3 text-sm",
-        active ? "border-blue bg-ink/8 text-fg" : "border-line text-muted",
+        active ? "chip-active" : "border-line text-muted",
       )}
     >
       {children}

@@ -1,20 +1,19 @@
+import Image from "next/image";
+import Link from "next/link";
+import { BrightDataLogo } from "@/components/BrightDataLogo";
 import { HeroGlobe } from "@/components/HeroGlobe";
 import { buttonClass } from "@/lib/buttons";
+import { media } from "@/lib/media";
 import {
-  audience,
-  formatEur,
-  formatNumber,
+  contentSocialReach,
+  formatContentSocialReachHeadline,
+  heroRoles,
+  heroStats,
   identity,
   mailtoForPlan,
-  quotes,
-  terminalScript,
+  profiles,
 } from "@/data/proposal";
-const stats = [
-  { value: formatNumber(audience.pastCombined), label: "developers already reached", detail: "counted, past events" },
-  { value: String(audience.pastEvents), label: "conferences, 2025–2026", detail: "plus upcoming stages" },
-  { value: formatEur(quotes.growth.monthly), label: "Plan 2, per month", detail: `${formatEur(quotes.growth.term)} over 5 months` },
-  { value: `${quotes.growth.savingPct}%`, label: "below the list price", detail: "best value of the four plans" },
-];
+import { cn } from "@/lib/cn";
 
 export function Hero() {
   return (
@@ -22,57 +21,90 @@ export function Hero() {
       <HeroGlobe />
       <div className="relative mx-auto grid max-w-6xl gap-10 px-5 pt-16 pb-14 md:px-8 md:pt-24 lg:grid-cols-12 lg:pt-28">
         <div className="lg:col-span-7">
-          <p className="kicker">Proposal · {identity.dateLabel} · {identity.company}</p>
-          <h1 className="mt-4 max-w-xl font-display text-[2.7rem] leading-[0.98] text-fg sm:text-6xl lg:text-7xl">
-            Put Bright Data in front of{" "}
-            <span className="text-[var(--blue-strong)]">100,000+ developers.</span>
+          <h1 className="max-w-xl font-display text-[2.7rem] leading-[0.98] text-fg sm:text-6xl lg:text-7xl">
+            <span className="sr-only">
+              Put Bright Data in front of {formatContentSocialReachHeadline()} people.
+            </span>
+            <span aria-hidden className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              Put
+              <BrightDataLogo decorative className="h-[0.82em] min-h-8 w-auto sm:min-h-9 lg:min-h-10" />
+              in front of
+            </span>{" "}
+            <span aria-hidden className="text-[var(--blue-strong)]">
+              {formatContentSocialReachHeadline()} people.
+            </span>
           </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-            {identity.person}, {identity.company}, proposes a five-month DevRel partnership
-            with {identity.counterparty} — {identity.termLong}. Plan 2 is the one to take:
-            {" "}{formatEur(quotes.growth.monthly)} a month against {formatEur(quotes.growth.list)} of
-            list-priced work.
+          <p className="mt-4 max-w-xl font-mono text-xs leading-relaxed text-faint">
+            Combined reach across {contentSocialReach.headlineChannels} — blog posts, newsletter,
+            and social channels (conference stages are additional).
           </p>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+            I&apos;m <strong className="font-medium text-fg">{identity.person}</strong> — I help
+            developer brands reach engineers through conference stages, newsletters, and
+            production-ready demos. This proposal outlines a five-month DevRel partnership with{" "}
+            {identity.counterparty} ({identity.termLong}).
+          </p>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {heroRoles.map((role) => (
+              <li
+                key={role}
+                className="rounded-full border border-line bg-surface-subtle px-3 py-1 font-mono text-[11px] tracking-wide text-fg"
+              >
+                {role}
+              </li>
+            ))}
+          </ul>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a href="#plans" className={buttonClass("primary")}>
+            <Link href="/plans" className={buttonClass("primary")}>
               See the plans
-            </a>
+            </Link>
             <a href={mailtoForPlan("growth")} className={buttonClass("ghost")}>
               Choose Plan 2
             </a>
           </div>
-          <p className="mt-4 font-mono text-xs text-faint">
-            From {identity.person} / {identity.company}. Not an official Bright Data site.
+          <p className="mt-4 max-w-xl font-mono text-xs leading-relaxed text-faint">
+            Personal proposal from {identity.person}. Delivered via {identity.company}. Not an
+            official Bright Data website.
           </p>
         </div>
 
-        <div className="lg:col-span-5 lg:pt-10">
-          <div className="glass rounded-2xl p-4 shadow-[0_20px_70px_rgba(0,0,0,0.28)]">
-            <div className="flex items-center gap-2 border-b border-line pb-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-[#ff6b6b]/80" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber/80" />
-              <span className="h-2.5 w-2.5 rounded-full bg-mint/80" />
-              <p className="ml-2 truncate font-mono text-[11px] tracking-wide text-faint">
-                partner.sh · illustrative
-              </p>
+        <div className="lg:col-span-5 lg:pt-4">
+          <div className="glass panel-shadow overflow-hidden rounded-2xl">
+            <div className="relative aspect-[4/5] w-full max-h-[28rem] bg-bg-raise">
+              <Image
+                src={media.kristiyanOffice}
+                alt={`${identity.person} — DevRel and tech speaker`}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 420px"
+                className="object-cover object-[center_20%]"
+              />
             </div>
-            <div className="mt-4 min-h-52 font-mono text-[13px] leading-relaxed sm:text-sm">
-              <p className="sr-only">{terminalScript.map((line) => line.text).join(". ")}</p>
-              <p aria-hidden="true">
-                <span className="text-mint">$</span>{" "}
-                <span className="typed-cmd caret text-fg">{terminalScript[0]?.text}</span>
+            <div className="border-t border-line p-5">
+              <p className="font-display text-2xl text-fg">{identity.person}</p>
+              <p className="mt-1 text-sm text-muted">
+                DevRel · Tech speaker · Docker Captain · SpaceX AI Ambassador
               </p>
-              <ul aria-hidden="true" className="mt-3 space-y-1.5 text-muted">
-                {terminalScript.slice(1).map((line, index) => (
-                  <li
-                    key={line.text}
-                    className="term-line"
-                    style={{ animationDelay: `${1.45 + index * 0.28}s` }}
-                  >
-                    <span className={line.kind === "ok" ? "text-mint" : "text-blue"} aria-hidden="true">
-                      {line.kind === "ok" ? "ok" : "›"}
-                    </span>{" "}
-                    {line.text}
+              <p className="mt-3 text-sm leading-relaxed text-muted">
+                Book author, blogger, and principal front-end engineer — focused on AI, security,
+                and adoption-ready developer content.
+              </p>
+              <p className="kicker mt-5">Find me online</p>
+              <ul className="mt-2.5 flex flex-wrap gap-2">
+                {profiles.map((profile) => (
+                  <li key={profile.href}>
+                    <a
+                      href={profile.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${profile.label} (opens in a new tab)`}
+                      className={cn(
+                        "print-url inline-flex min-h-9 items-center rounded-full border border-line px-3 text-xs text-fg",
+                        "hover:border-blue hover:bg-surface-subtle",
+                      )}
+                    >
+                      {profile.label}
+                    </a>
                   </li>
                 ))}
               </ul>
@@ -80,15 +112,33 @@ export function Hero() {
           </div>
         </div>
 
-        <dl className="grid gap-3 sm:grid-cols-2 lg:col-span-12 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="glass rounded-2xl px-4 py-4">
-              <dt className="font-display text-2xl text-fg tabular-nums">{stat.value}</dt>
-              <dd className="mt-1 text-sm text-fg">{stat.label}</dd>
-              <dd className="font-mono text-[11px] tracking-wide text-faint">{stat.detail}</dd>
-            </div>
-          ))}
-        </dl>
+        <div className="lg:col-span-12">
+          <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {heroStats.map((stat) => (
+              <div key={stat.label} className="glass flex flex-col rounded-2xl px-4 py-4">
+                <dt className="font-display text-2xl text-fg tabular-nums">{stat.value}</dt>
+                <dd className="mt-1 text-sm text-fg">{stat.label}</dd>
+                <dd className="font-mono text-[11px] tracking-wide text-faint">{stat.detail}</dd>
+                <dd className="mt-3">
+                  <a
+                    href={stat.social.href}
+                    className="print-url inline-flex min-h-9 items-center rounded-full border border-line px-3 text-xs font-medium text-blue hover:border-blue hover:bg-surface-subtle"
+                    {...(stat.social.href.startsWith("#")
+                      ? {}
+                      : { target: "_blank", rel: "noopener noreferrer" })}
+                  >
+                    {stat.social.label}
+                    {!stat.social.href.startsWith("#") ? (
+                      <span aria-hidden="true" className="ml-1 font-mono text-faint">
+                        ↗
+                      </span>
+                    ) : null}
+                  </a>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );

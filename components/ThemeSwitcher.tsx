@@ -16,7 +16,7 @@ export function ThemeSwitcher({ className }: ThemeSwitcherProps) {
       type="button"
       onClick={toggleTheme}
       className={cn(
-        "inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-blue hover:bg-ink/5",
+        "inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-blue hover:bg-surface-subtle",
         className,
       )}
       aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}

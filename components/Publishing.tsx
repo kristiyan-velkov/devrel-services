@@ -21,7 +21,7 @@ const tierClass: Record<PublishTier, string> = {
   core: "badge-mint",
   growth: "badge-blue",
   addon: "badge-amber",
-  pilot: "bg-ink/10 text-fg",
+  pilot: "bg-surface-emphasis text-fg",
 };
 
 export function Publishing() {
@@ -80,7 +80,7 @@ export function Publishing() {
                 aria-controls={`panel-${month.id}`}
                 className={cn(
                   "min-h-11 shrink-0 rounded-full border px-4 text-sm",
-                  monthId === month.id ? "border-blue bg-ink/8 text-fg" : "border-line text-muted",
+                  monthId === month.id ? "chip-active" : "border-line text-muted",
                 )}
                 onClick={() => {
                   setMonthId(month.id);
@@ -132,7 +132,7 @@ export function Publishing() {
                       aria-label={`${day} ${month.label} ${month.yearLabel}, ${shown.length} items`}
                       className={cn(
                         "min-h-16 rounded-xl border px-1 py-1 text-left md:min-h-20",
-                        isSelected ? "border-blue bg-ink/8" : "border-line/80 bg-ink/5",
+                        isSelected ? "chip-active" : "border-line/80 bg-surface-subtle",
                       )}
                     >
                       <span className="font-mono text-xs text-fg">{day}</span>
@@ -208,7 +208,7 @@ function TierButton({
       onClick={onClick}
       className={cn(
         "min-h-11 rounded-full border px-3 text-sm",
-        active ? "border-blue bg-ink/8 text-fg" : "border-line text-muted",
+        active ? "chip-active" : "border-line text-muted",
       )}
     >
       {children}
