@@ -10,6 +10,7 @@ import {
   includedInEveryPlan,
   isNewPlanFeature,
   mailtoForPlan,
+  planCtaEnabled,
   planLines,
   planOrder,
   plans,
@@ -36,7 +37,7 @@ export function Plans() {
           index="02"
           kicker="Plans"
           title="Choose your plan."
-          lede={`All prices are per month (${TERM_MONTHS}-month term). Each plan includes the previous one. Plan 2 is the recommended yes.`}
+          lede={`All prices are per month (${TERM_MONTHS}-month term). Each plan includes the previous one.`}
         />
 
         <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Highlight a plan">
@@ -325,15 +326,17 @@ function PlanCard({
           <p className="plan-scope-kicker plan-scope-kicker--in">Nothing left out of this list</p>
         )}
 
-        <a
-          href={mailtoForPlan(plan.id)}
-          className={cn(
-            "no-print plan-card__cta",
-            plan.recommended ? buttonClass("primary") : buttonClass("ghost"),
-          )}
-        >
-          Choose Plan {plan.number}
-        </a>
+        {planCtaEnabled(plan.id) ? (
+          <a
+            href={mailtoForPlan(plan.id)}
+            className={cn(
+              "no-print plan-card__cta",
+              plan.recommended ? buttonClass("primary") : buttonClass("ghost"),
+            )}
+          >
+            Choose Plan {plan.number}
+          </a>
+        ) : null}
       </div>
     </article>
   );

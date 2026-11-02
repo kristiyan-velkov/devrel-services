@@ -734,6 +734,11 @@ export function previousPlanId(id: PlanId): PlanId | null {
   return index > 0 ? planOrder[index - 1]! : null;
 }
 
+/** Plan 1 is pilot continuation — shown for comparison, not offered as a new pick here. */
+export function planCtaEnabled(id: PlanId): boolean {
+  return id !== "core";
+}
+
 export function isNewPlanFeature(line: PlanLine, planId: PlanId): boolean {
   const quantity = line.quantities[planId];
   if (quantity === 0) return false;
