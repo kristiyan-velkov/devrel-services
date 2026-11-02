@@ -7,7 +7,7 @@ import {
   type PlanId,
   type Service,
   type ServiceCategory,
-} from "./proposal.ts";
+} from "./proposal";
 
 export const MAX_QUOTE_QTY = 99;
 
