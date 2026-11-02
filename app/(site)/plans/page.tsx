@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Agreement } from "@/components/Agreement";
-import { Bonus } from "@/components/Bonus";
 import { Plans } from "@/components/Plans";
-import { Services } from "@/components/Services";
+import { PlansPrintSheet } from "@/components/PlansPrintSheet";
+import { PrintPlansOnLoad } from "@/components/PrintPlansOnLoad";
 import { meta } from "@/data/proposal";
 
 export const metadata: Metadata = {
@@ -14,10 +15,12 @@ export const metadata: Metadata = {
 export default function PlansPage() {
   return (
     <>
+      <Suspense fallback={null}>
+        <PrintPlansOnLoad />
+      </Suspense>
       <Agreement />
       <Plans />
-      <Services />
-      <Bonus />
+      <PlansPrintSheet />
     </>
   );
 }

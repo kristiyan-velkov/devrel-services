@@ -5,9 +5,12 @@ import {
   bestValuePlanId,
   contentSocialReach,
   formatContentSocialReachHeadline,
+  formatEur,
+  compareQuantityLabel,
   planLines,
   publishingItems,
   quotes,
+  scopeComparisonCsv,
   serviceById,
   speakingEvents,
   totalContentSocialReach,
@@ -35,7 +38,7 @@ test("quoted figures match the November 2026 workbook", () => {
       pct: quotes.core.savingPct,
       perEuro: quotes.core.valuePerEuro,
     },
-    { list: 20000, term: 25000, pct: -25, perEuro: 0.8 },
+    { list: 18500, term: 25000, pct: -35, perEuro: 0.74 },
   );
   assert.deepEqual(
     {
@@ -44,7 +47,7 @@ test("quoted figures match the November 2026 workbook", () => {
       pct: quotes.growth.savingPct,
       perEuro: quotes.growth.valuePerEuro,
     },
-    { list: 65650, term: 60000, pct: 9, perEuro: 1.09 },
+    { list: 61800, term: 59995, pct: 3, perEuro: 1.03 },
   );
   assert.deepEqual(
     {
@@ -53,7 +56,7 @@ test("quoted figures match the November 2026 workbook", () => {
       pct: quotes.pro.savingPct,
       perEuro: quotes.pro.valuePerEuro,
     },
-    { list: 119750, term: 75000, pct: 37, perEuro: 1.6 },
+    { list: 117200, term: 79995, pct: 32, perEuro: 1.47 },
   );
   assert.deepEqual(
     {
@@ -62,7 +65,7 @@ test("quoted figures match the November 2026 workbook", () => {
       pct: quotes.elite.savingPct,
       perEuro: quotes.elite.valuePerEuro,
     },
-    { list: 216150, term: 100000, pct: 54, perEuro: 2.16 },
+    { list: 221600, term: 114995, pct: 48, perEuro: 1.93 },
   );
   assert.equal(bestValuePlanId, "elite");
 });
@@ -93,7 +96,7 @@ test("Elite quantities match the agreed Plan 4 scope", () => {
       demos: 8,
       sessions: 7,
       reports: 7,
-      linkedin: 12,
+      linkedin: 16,
       few: 16,
       youtube: 10,
       recipes: 6,
@@ -152,17 +155,45 @@ test("Core quantities match the signed agreement", () => {
   );
 });
 
+test("scope comparison csv matches the plan table", () => {
+  assert.equal(compareQuantityLabel("articles", 4), "4");
+  assert.equal(compareQuantityLabel("india", 1), "Yes");
+  assert.equal(compareQuantityLabel("banner", 1), "1 mo");
+  assert.equal(compareQuantityLabel("linkedin", 0), "Not included");
+
+  const csv = scopeComparisonCsv().replace(/^\uFEFF/, "");
+  const lines = csv.split("\r\n");
+  const articles = lines.find((line) => line.startsWith("Sponsored articles / tutorials,"));
+  const linkedin = lines.find((line) => line.startsWith("LinkedIn posts,"));
+  const banner = lines.find((line) => line.startsWith("Bright Data banner"));
+  const monthly = lines.find((line) => line.startsWith("Price per month,"));
+
+  assert.equal(
+    articles,
+    "Sponsored articles / tutorials,Agreement + proposed,Medium (proposed) + promotion on X.com and Medium,4,8,12,16",
+  );
+  assert.equal(linkedin, 'LinkedIn posts,,"31,000+ followers",Not included,8,12,16');
+  assert.equal(
+    banner,
+    "Bright Data banner on Kristiyan's official website,,per month,Not included,1 mo,3 mo,5 mo",
+  );
+  assert.ok(monthly?.includes(formatEur(quotes.core.monthly)));
+  assert.ok(monthly?.includes(formatEur(quotes.growth.monthly)));
+  assert.ok(!lines.some((line) => line.startsWith("Price for 5 months,")));
+  assert.match(csv, /Plan 2 Growth \(.*recommended\)/);
+});
+
 test("audience totals exclude shared, unpublished and Vilnius attendee figures", () => {
   assert.equal(audience.pastInPerson, 35600);
   assert.equal(audience.pastOnline, 40000);
   assert.equal(audience.pastCombined, 75600);
-  assert.equal(audience.upcomingInPerson, 5800);
+  assert.equal(audience.upcomingInPerson, 6800);
   assert.equal(audience.upcomingOnline, 20000);
-  assert.equal(audience.allCombined, 101400);
+  assert.equal(audience.allCombined, 102400);
   assert.equal(audience.pastEvents, 15);
-  assert.equal(audience.upcomingEvents, 6);
+  assert.equal(audience.upcomingEvents, 7);
   assert.equal(audience.events2026, 17);
-  assert.equal(speakingEvents.length, 21);
+  assert.equal(speakingEvents.length, 22);
 });
 
 test("content and social reach headline sums newsletter and social followers", () => {

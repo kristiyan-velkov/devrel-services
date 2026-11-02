@@ -27,7 +27,7 @@ export function Speaking() {
 
   return (
     <section id="speaking" className="scroll-mt-28 py-20 md:py-28" aria-labelledby="speaking-title">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+      <div className="site-wrap px-5 md:px-8">
         <SectionHeading
           id="speaking-title"
           index="01"

@@ -14,7 +14,7 @@ export default function ConferencesPage() {
     <Suspense
       fallback={
         <section className="py-20 md:py-28">
-          <div className="mx-auto max-w-6xl px-5 md:px-8">
+          <div className="site-wrap px-5 md:px-8">
             <p className="font-mono text-xs tracking-widest text-faint uppercase">Loading timeline…</p>
           </div>
         </section>

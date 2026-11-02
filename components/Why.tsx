@@ -17,7 +17,7 @@ import { cn } from "@/lib/cn";
 export function Why() {
   return (
     <section id="why" className="scroll-mt-28 py-20 md:py-28" aria-labelledby="why-title">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+      <div className="site-wrap px-5 md:px-8">
         <SectionHeading
           id="why-title"
           index="01"
@@ -35,6 +35,21 @@ export function Why() {
                   <div>
                     <p className="text-lg leading-snug text-fg">{item.headline}</p>
                     <p className="mt-1.5 text-sm leading-relaxed text-muted">{item.detail}</p>
+                    {"links" in item && item.links ? (
+                      <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                        {item.links.map((link) => (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="print-url text-xs font-medium text-blue hover:underline"
+                          >
+                            {link.label} ↗
+                          </a>
+                        ))}
+                      </p>
+                    ) : null}
                   </div>
                 </li>
               ))}

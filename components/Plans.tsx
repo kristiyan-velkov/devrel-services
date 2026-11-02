@@ -5,19 +5,18 @@ import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { buttonClass } from "@/lib/buttons";
 import {
-  agreement,
-  bestValuePlanId,
+  compareQuantityLabel,
   formatEur,
-  formatEurExact,
   includedInEveryPlan,
   isNewPlanFeature,
   mailtoForPlan,
   planLines,
-  planNotes,
   planOrder,
   plans,
   previousPlanId,
   quotes,
+  scopeComparisonCsv,
+  scopeComparisonFilename,
   serviceById,
   TERM_MONTHS,
   type Plan,
@@ -28,16 +27,15 @@ import { cn } from "@/lib/cn";
 
 export function Plans() {
   const [focus, setFocus] = useState<PlanId>("growth");
-  const maxValue = Math.max(...planOrder.map((id) => quotes[id].valuePerEuro));
 
   return (
-    <section id="plans" className="print-break scroll-mt-28 py-20 md:py-28" aria-labelledby="plans-title">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+    <section id="plans" className="print-break scroll-mt-28 py-20 md:py-28" aria-labelledby="choose">
+      <div className="mx-auto site-wrap px-5 md:px-8">
         <SectionHeading
-          id="plans-title"
+          id="choose"
           index="02"
           kicker="Plans"
-          title="Four ways in. One is the obvious yes."
+          title="Choose your plan."
           lede={`All prices are per month (${TERM_MONTHS}-month term). Each plan includes the previous one. Plan 2 is the recommended yes.`}
         />
 
@@ -69,7 +67,6 @@ export function Plans() {
               <PlanCard
                 plan={plan}
                 quote={quotes[plan.id]}
-                maxValue={maxValue}
                 emphasized={focus === plan.id}
                 onFocus={() => setFocus(plan.id)}
               />
@@ -77,16 +74,26 @@ export function Plans() {
           ))}
         </div>
 
-        <div className="mt-14">
-          <p className="kicker">Compare scope</p>
-          <h3 id="plan-compare" className="mt-2 font-display text-2xl text-fg">
-            What is included — and what is not
-          </h3>
-          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
-            Green means the plan includes it. Grey means it does not. Quantities are for the full{" "}
-            {TERM_MONTHS}-month term.
-          </p>
-          <PlanLegend />
+        <div className="mt-14 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-2xl">
+            <p className="kicker">Compare scope</p>
+            <h3 id="plan-compare" className="mt-2 font-display text-2xl text-fg">
+              What is included — and what is not
+            </h3>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted">
+              Green means the plan includes it. Grey means it does not. Quantities are for the full{" "}
+              {TERM_MONTHS}-month term.
+            </p>
+            <PlanLegend />
+          </div>
+          <div className="no-print flex flex-wrap gap-2" role="group" aria-label="Export the scope comparison">
+            <button type="button" className={buttonClass("ghost")} onClick={downloadScopeCsv}>
+              Export CSV
+            </button>
+            <button type="button" className={buttonClass("ghost")} onClick={exportScopePdf}>
+              Export PDF
+            </button>
+          </div>
         </div>
 
         <div
@@ -176,30 +183,10 @@ export function Plans() {
                 emphasize
                 focus={focus}
               />
-              <MoneyRow
-                label="Saving vs list"
-                pick={(id) => (quotes[id].saving > 0 ? formatEur(quotes[id].saving) : "—")}
-                focus={focus}
-              />
-              <MoneyRow
-                label="Saving"
-                pick={(id) => (quotes[id].saving > 0 ? `${quotes[id].savingPct}%` : "—")}
-                focus={focus}
-              />
-              <MoneyRow
-                label="List value per €1"
-                pick={(id) => formatEurExact(quotes[id].valuePerEuro)}
-                focus={focus}
-              />
             </tfoot>
           </table>
         </div>
         <p className="mt-3 text-xs text-faint lg:hidden">Swipe the table sideways to compare all four plans.</p>
-        <ul className="mt-6 max-w-3xl space-y-2 text-sm leading-relaxed text-muted">
-          {planNotes.map((note) => (
-            <li key={note}>{note}</li>
-          ))}
-        </ul>
       </div>
     </section>
   );
@@ -227,13 +214,11 @@ function PlanLegend() {
 function PlanCard({
   plan,
   quote,
-  maxValue,
   emphasized,
   onFocus,
 }: {
   plan: Plan;
   quote: (typeof quotes)[PlanId];
-  maxValue: number;
   emphasized: boolean;
   onFocus: () => void;
 }) {
@@ -246,188 +231,162 @@ function PlanCard({
   return (
     <article
       className={cn(
-        "plan-card flex h-full flex-col p-5",
+        "plan-card flex h-full flex-col",
         plan.recommended && "is-recommended",
         emphasized && "is-emphasized",
       )}
       onMouseEnter={onFocus}
     >
-      <div className="flex items-start justify-between gap-3">
-        <p className="kicker">
-          Plan {plan.number} · {plan.kicker}
-        </p>
-        {plan.recommended ? (
-          <span className="badge-mint rounded-full px-2 py-1 text-center font-mono text-[10px] tracking-wide uppercase">
-            Recommended
-          </span>
-        ) : null}
-      </div>
-
-      <h3 className="mt-3 font-display text-3xl">{plan.name}</h3>
-      <p className="mt-2 min-h-14 text-sm leading-relaxed text-muted">{plan.summary}</p>
-
-      {previousPlan ? (
-        <p className="plan-card__stack">
-          Includes everything in{" "}
-          <span className="font-medium text-fg">
-            Plan {previousPlan.number} · {previousPlan.name}
-          </span>
-          {newFeatures.length > 0 ? (
-            <>
-              {" "}
-              plus <span className="font-medium text-fg">{newFeatures.length} additions</span>.
-            </>
+      <span className="plan-card__num" aria-hidden="true">
+        {plan.number}
+      </span>
+      <div className="plan-card__head">
+        <div className="plan-card__meta">
+          <p className="kicker">
+            Plan {plan.number} · {plan.kicker}
+          </p>
+          {plan.recommended ? (
+            <span className="badge-mint rounded-full px-2 py-1 text-center font-mono text-[10px] tracking-wide uppercase">
+              Recommended
+            </span>
           ) : null}
-        </p>
-      ) : (
-        <p className="plan-card__stack">Baseline scope — higher plans add on top.</p>
-      )}
-
-      <div className="mt-5 border-t border-line pt-5">
-        <p className="font-display text-4xl tabular-nums text-fg">
+        </div>
+        <h3 className="plan-card__name">{plan.name}</h3>
+        <p className="plan-card__price">
           {formatEur(quote.monthly)}
-          <span className="ml-1 font-mono text-sm font-normal text-faint">/month</span>
+          <span>/month</span>
         </p>
         {quote.saving > 0 ? (
-          <p className="mt-2 inline-flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] text-muted">
-            <span className="rounded-full border border-mint/40 bg-mint/10 px-2 py-0.5 text-mint">
-              Save {quote.savingPct}% vs list
+          <p className="plan-card__save">
+            <span>Save {quote.savingPct}% vs list</span>
+          </p>
+        ) : (
+          <p className="plan-card__save">
+            <span>Signed rate</span>
+          </p>
+        )}
+        <p className="plan-card__summary">{plan.summary}</p>
+        {previousPlan ? (
+          <p className="plan-card__stack">
+            Includes everything in{" "}
+            <span className="font-medium text-fg">
+              Plan {previousPlan.number} · {previousPlan.name}
             </span>
-            <span>{formatEur(quote.saving)} off à la carte</span>
+            {newFeatures.length > 0 ? (
+              <>
+                {" "}
+                plus <span className="font-medium text-fg">{newFeatures.length} additions</span>.
+              </>
+            ) : null}
           </p>
         ) : (
-          <p className="mt-2 inline-flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] text-muted">
-            <span className="rounded-full border border-line bg-surface-subtle px-2 py-0.5">Signed rate</span>
-            <span>Same {formatEur(quote.monthly)}/month as the agreement</span>
-          </p>
+          <p className="plan-card__stack">Baseline scope — higher plans add on top.</p>
         )}
-        {plan.id === bestValuePlanId ? (
-          <p className="mt-2 font-mono text-[11px] tracking-wide text-blue uppercase">
-            Best value · {quote.valuePerEuro.toFixed(2)} list per €1
-          </p>
-        ) : (
-          <p className="mt-2 font-mono text-[11px] text-faint">{quote.valuePerEuro.toFixed(2)} list per €1</p>
-        )}
-        <div className="mt-3 h-1 overflow-hidden rounded-full bg-surface-emphasis" aria-hidden="true">
-          <div
-            className={cn("h-full rounded-full", plan.recommended ? "bg-mint" : "bg-blue")}
-            style={{ width: `${(quote.valuePerEuro / maxValue) * 100}%` }}
-          />
-        </div>
       </div>
 
-      <div className="mt-5 flex-1">
+      <div className="plan-card__body">
         <p className="plan-scope-kicker plan-scope-kicker--in">
           Included
-          <span>
-            {plan.id === "core"
-              ? agreement.deliverables.length
-              : included.length + includedInEveryPlan.length}
-          </span>
+          <span>{included.length + includedInEveryPlan.length}</span>
         </p>
-        <ul className="mt-2 space-y-1">
-          {plan.id === "core"
-            ? agreement.deliverables.map((row) => (
-                <FeatureRow
-                  key={row.name}
-                  included
-                  quantity={row.quantity}
-                  label={row.name}
-                  detail={row.where}
-                  basis={row.basis}
-                />
-              ))
-            : (
-              <>
-                {included.map((line) => (
-                  <FeatureRow
-                    key={line.id}
-                    included
-                    quantity={quantityLabel(line, plan.id)}
-                    label={line.label}
-                    isNew={isNewPlanFeature(line, plan.id)}
-                  />
-                ))}
-                {includedInEveryPlan.map((row) => (
-                  <FeatureRow
-                    key={row.label}
-                    included
-                    quantity={row.value}
-                    label={row.label}
-                  />
-                ))}
-              </>
-            )}
+        <ul className="plan-card__list">
+          {included.map((line) => (
+            <FeatureRow
+              key={line.id}
+              included
+              quantity={quantityLabel(line, plan.id)}
+              label={line.label}
+              isNew={isNewPlanFeature(line, plan.id)}
+            />
+          ))}
+          {includedInEveryPlan.map((row) => (
+            <FeatureRow
+              key={row.label}
+              included
+              quantity={row.value}
+              label={row.label}
+            />
+          ))}
         </ul>
 
         {excluded.length > 0 ? (
           <>
-            <p className="plan-scope-kicker plan-scope-kicker--out mt-5">
+            <p className="plan-scope-kicker plan-scope-kicker--out">
               Not included
               <span>{excluded.length}</span>
             </p>
-            <ul className="mt-2 space-y-1">
+            <ul className="plan-card__list">
               {excluded.map((line) => (
                 <FeatureRow key={line.id} included={false} label={line.label} />
               ))}
             </ul>
           </>
         ) : (
-          <p className="plan-scope-kicker plan-scope-kicker--in mt-5">Nothing left out of this list</p>
+          <p className="plan-scope-kicker plan-scope-kicker--in">Nothing left out of this list</p>
         )}
-      </div>
 
-      <a
-        href={mailtoForPlan(plan.id)}
-        className={cn("mt-6 w-full", plan.recommended ? buttonClass("primary") : buttonClass("ghost"))}
-      >
-        Choose Plan {plan.number}
-      </a>
+        <a
+          href={mailtoForPlan(plan.id)}
+          className={cn(
+            "no-print plan-card__cta",
+            plan.recommended ? buttonClass("primary") : buttonClass("ghost"),
+          )}
+        >
+          Choose Plan {plan.number}
+        </a>
+      </div>
     </article>
   );
-}
-
-function displayQuantity(quantity?: string) {
-  if (!quantity || quantity === "Included") return "Incl.";
-  if (quantity === "Up to 2") return "≤2";
-  return quantity;
 }
 
 function FeatureRow({
   included,
   label,
   quantity,
-  detail,
-  basis,
   isNew = false,
 }: {
   included: boolean;
   label: string;
   quantity?: string;
-  detail?: string;
-  basis?: string;
   isNew?: boolean;
 }) {
-  const qty = included ? displayQuantity(quantity) : "No";
+  const qtyTone = quantity ? quantityDisplayTone(quantity) : null;
+
   return (
     <li
       className={cn("plan-feature", included ? "plan-feature--in" : "plan-feature--out")}
       aria-label={
         included
-          ? `${label}, included${quantity && quantity !== "Included" ? `, ${quantity}` : ""}${basis ? `, ${basis}` : ""}`
+          ? `${label}, included${quantity && quantity !== "Included" ? `, ${quantity}` : ""}`
           : `${label}, not included`
       }
     >
       <InclusionMark included={included} />
-      <span className="plan-feature__qty">{qty}</span>
-      <span className="plan-feature__label">
-        <span>{label}</span>
-        {basis ? <span className="plan-feature__basis">{basis}</span> : null}
-        {detail ? <span className="plan-feature__where">{detail}</span> : null}
-      </span>
-      {isNew ? <span className="plan-new">New</span> : <span aria-hidden="true" />}
+      <div className="plan-feature__content">
+        {included && quantity ? (
+          <div className="plan-feature__main">
+            <span className={cn("plan-feature__qty", qtyTone && `plan-feature__qty--${qtyTone}`)}>
+              {quantity}
+            </span>
+            <span className="plan-feature__label">
+              <span className="plan-feature__text">{label}</span>
+              {isNew ? <span className="plan-new">New</span> : null}
+            </span>
+          </div>
+        ) : (
+          <span className="plan-feature__label plan-feature__label--solo">
+            <span className="plan-feature__text">{label}</span>
+            {isNew ? <span className="plan-new">New</span> : null}
+          </span>
+        )}
+      </div>
     </li>
   );
+}
+
+function quantityDisplayTone(quantity: string) {
+  if (/^\d+$/.test(quantity) || /^\d+ mo$/.test(quantity) || quantity === "Yes") return "num";
+  return "text";
 }
 
 function CompareCell({
@@ -519,9 +478,6 @@ function MoneyRow({
           )}
         >
           {pick(id)}
-          {label === "List value per €1" && id === bestValuePlanId ? (
-            <span className="mt-1 block font-mono text-[10px] tracking-wide text-mint uppercase">Best value</span>
-          ) : null}
         </td>
       ))}
     </tr>
@@ -531,9 +487,41 @@ function MoneyRow({
 function quantityLabel(line: PlanLine, planId: PlanId) {
   const quantity = line.quantities[planId];
   if (quantity === 0) return "";
-  if (line.id === "india") return "Yes";
-  if (line.id === "banner" || line.id === "article-ad") {
-    return `${quantity} mo`;
-  }
-  return String(quantity);
+  return compareQuantityLabel(line.id, quantity);
 }
+
+function downloadScopeCsv() {
+  const csv = scopeComparisonCsv();
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = scopeComparisonFilename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function exportScopePdf() {
+  const root = document.documentElement;
+  const sheet = document.getElementById("plans-print");
+  if (!sheet) return;
+
+  root.classList.add("print-plans");
+  sheet.removeAttribute("aria-hidden");
+
+  const done = () => {
+    root.classList.remove("print-plans");
+    sheet.setAttribute("aria-hidden", "true");
+    window.removeEventListener("afterprint", done);
+  };
+
+  window.addEventListener("afterprint", done);
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      window.print();
+    });
+  });
+}
+

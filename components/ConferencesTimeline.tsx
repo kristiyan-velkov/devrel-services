@@ -38,6 +38,7 @@ export function ConferencesTimeline() {
     [],
   );
   const onlineCount = speakingEvents.filter((event) => eventIsOnline(event.place, event.onlineOnly)).length;
+  const nextUp = speakingEvents.find((event) => event.status === "upcoming");
 
   const visible = speakingEvents.filter((event) => {
     const statusOk = status === "all" || event.status === status;
@@ -65,115 +66,117 @@ export function ConferencesTimeline() {
   const lastYear = speakingEvents[speakingEvents.length - 1]?.year;
 
   return (
-    <section id="conferences" className="conference-page scroll-mt-28 py-20 md:py-28" aria-labelledby="conferences-title">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <SectionHeading
-          id="conferences-title"
-          index="01"
-          kicker="Conferences"
-          title="Speaking record."
-          lede="Chronological register of in-person and online appearances. Audience figures are organiser-published event totals, not the size of one room."
-        />
-
-        <div className="conference-ledger glass mt-10 rounded-3xl">
-          <div className="conference-ledger__mast">
-            <div>
-              <p className="conference-ledger__doc">Appendix · speaking register</p>
-              <p className="conference-ledger__who">{identity.person}</p>
-            </div>
-            <p className="conference-ledger__span">
-              {firstYear}–{lastYear}
-            </p>
-          </div>
-
-          <dl className="conference-summary">
-            <div>
-              <dt>Events listed</dt>
-              <dd>{speakingEvents.length}</dd>
-            </div>
-            <div>
-              <dt>Already held</dt>
-              <dd>{held}</dd>
-            </div>
-            <div>
-              <dt>Upcoming</dt>
-              <dd>{upcoming}</dd>
-            </div>
-            <div>
-              <dt>Cities</dt>
-              <dd>{cityOptions.length}</dd>
-            </div>
-          </dl>
-
-          <div className="conference-toolbar no-print">
-            <div className="conference-seg" role="group" aria-label="Filter by status">
-              {statusFilters.map(([id, label]) => (
-                <button
-                  key={id}
-                  type="button"
-                  aria-pressed={status === id}
-                  className={cn("conference-seg__btn", status === id && "is-on")}
-                  onClick={() => setStatus(id)}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-            <label className="conference-city">
-              <span>Place</span>
-              <select
-                value={city}
-                onChange={(event) => setCity(parseConferencePlace(event.target.value))}
-              >
-                <option value="all">All places</option>
-                <option value="online">🌐 Online ({onlineCount})</option>
-                {cityOptions.map((place) => (
-                  <option key={place.id} value={place.id}>
-                    {flagEmoji(place.country)} {place.name}, {place.country}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <p className="conference-toolbar__count">
-              Showing {visible.length} {visible.length === 1 ? "event" : "events"}
-            </p>
-          </div>
-
-          {years.length === 0 ? (
-            <p className="conference-empty">No events match this filter.</p>
-          ) : (
-            <ol className="conference-register">
-              {years.map(([year, events]) => (
-                <li key={year} className="conference-year">
-                  <div className="conference-year__head">
-                    <h3 className="conference-year__label">{year}</h3>
-                    <p className="conference-year__meta">
-                      {events.length} {events.length === 1 ? "event" : "events"}
-                    </p>
-                  </div>
-                  <ol className="conference-year__list">
-                    {events.map((event) => {
-                      const open = activeId === event.id;
-                      return (
-                        <li
-                          key={event.id}
-                          id={`speaking-event-${event.id}`}
-                          className="print-all scroll-mt-28"
-                        >
-                          <SpeakingEventCard
-                            event={event}
-                            open={open}
-                            onToggle={() => setActiveId(open ? "" : event.id)}
-                          />
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </li>
-              ))}
-            </ol>
-          )}
+    <section id="conferences" className="conference-page scroll-mt-28 py-16 md:py-24" aria-labelledby="conferences-title">
+      <div className="site-wrap px-5 md:px-8">
+        <div className="conference-hero">
+          <SectionHeading
+            id="conferences-title"
+            index="01"
+            kicker="Conferences"
+            title="Speaking record."
+            lede="Chronological register of in-person and online appearances. Audience figures are organiser-published event totals, not the size of one room."
+          />
+          <p className="conference-hero__span" aria-hidden="true">
+            {firstYear}—{lastYear}
+          </p>
         </div>
+
+        <dl className="conference-summary">
+          <div>
+            <dt>Events listed</dt>
+            <dd>{speakingEvents.length}</dd>
+          </div>
+          <div>
+            <dt>Already held</dt>
+            <dd>{held}</dd>
+          </div>
+          <div>
+            <dt>Upcoming</dt>
+            <dd>{upcoming}</dd>
+          </div>
+          <div>
+            <dt>Cities</dt>
+            <dd>{cityOptions.length}</dd>
+          </div>
+        </dl>
+
+        {nextUp ? (
+          <a href={`#speaking-event-${nextUp.id}`} className="conference-next no-print">
+            <span className="conference-next__kicker">Next on stage</span>
+            <span className="conference-next__when">{nextUp.when}</span>
+            <span className="conference-next__name">{nextUp.name}</span>
+            <span className="conference-next__place">{nextUp.place}</span>
+          </a>
+        ) : null}
+
+        <div className="conference-toolbar no-print">
+          <div className="conference-seg" role="group" aria-label="Filter by status">
+            {statusFilters.map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                aria-pressed={status === id}
+                className={cn("conference-seg__btn", status === id && "is-on")}
+                onClick={() => setStatus(id)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <label className="conference-city">
+            <span>Place</span>
+            <select
+              value={city}
+              onChange={(event) => setCity(parseConferencePlace(event.target.value))}
+            >
+              <option value="all">All places</option>
+              <option value="online">Online ({onlineCount})</option>
+              {cityOptions.map((place) => (
+                <option key={place.id} value={place.id}>
+                  {flagEmoji(place.country)} {place.name}, {place.country}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p className="conference-toolbar__count">
+            {visible.length} {visible.length === 1 ? "event" : "events"} · {identity.person}
+          </p>
+        </div>
+
+        {years.length === 0 ? (
+          <p className="conference-empty">No events match this filter.</p>
+        ) : (
+          <ol className="conference-register">
+            {years.map(([year, events]) => (
+              <li key={year} className="conference-year">
+                <div className="conference-year__head">
+                  <h3 className="conference-year__label">{year}</h3>
+                  <p className="conference-year__meta">
+                    {events.length} {events.length === 1 ? "event" : "events"}
+                  </p>
+                </div>
+                <ol className="conference-year__list">
+                  {events.map((event) => {
+                    const open = activeId === event.id;
+                    return (
+                      <li
+                        key={event.id}
+                        id={`speaking-event-${event.id}`}
+                        className="print-all scroll-mt-28"
+                      >
+                        <SpeakingEventCard
+                          event={event}
+                          open={open}
+                          onToggle={() => setActiveId(open ? "" : event.id)}
+                        />
+                      </li>
+                    );
+                  })}
+                </ol>
+              </li>
+            ))}
+          </ol>
+        )}
       </div>
     </section>
   );

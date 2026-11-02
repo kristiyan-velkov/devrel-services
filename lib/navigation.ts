@@ -11,6 +11,7 @@ export const primaryNav: NavLink[] = [
   { href: "/#speaking", label: "Stage" },
   { href: "/conferences", label: "Conferences" },
   { href: "/plans", label: "Plans" },
+  { href: "/services", label: "Services" },
   { href: "/calendar", label: "Calendar" },
 ];
 

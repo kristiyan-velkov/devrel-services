@@ -10,7 +10,6 @@ import {
   heroRoles,
   heroStats,
   identity,
-  mailtoForPlan,
   profiles,
 } from "@/data/proposal";
 import { cn } from "@/lib/cn";
@@ -19,7 +18,7 @@ export function Hero() {
   return (
     <section id="top" className="relative isolate overflow-hidden">
       <HeroGlobe />
-      <div className="relative mx-auto grid max-w-6xl gap-10 px-5 pt-16 pb-14 md:px-8 md:pt-24 lg:grid-cols-12 lg:pt-28">
+      <div className="relative site-wrap grid gap-10 px-5 pt-16 pb-14 md:px-8 md:pt-24 lg:grid-cols-12 lg:pt-28">
         <div className="lg:col-span-7">
           <h1 className="max-w-xl font-display text-[2.7rem] leading-[0.98] text-fg sm:text-6xl lg:text-7xl">
             <span className="sr-only">
@@ -58,9 +57,9 @@ export function Hero() {
             <Link href="/plans" className={buttonClass("primary")}>
               See the plans
             </Link>
-            <a href={mailtoForPlan("growth")} className={buttonClass("ghost")}>
-              Choose Plan 2
-            </a>
+            <Link href="/conferences" className={buttonClass("ghost")}>
+              Conferences
+            </Link>
           </div>
           <p className="mt-4 max-w-xl font-mono text-xs leading-relaxed text-faint">
             Personal proposal from {identity.person}. Delivered via {identity.company}. Not an

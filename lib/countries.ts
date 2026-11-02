@@ -6,6 +6,7 @@ export const countryIso: Record<string, string> = {
   Mexico: "mx",
   Netherlands: "nl",
   Poland: "pl",
+  Singapore: "sg",
   Türkiye: "tr",
   "United Kingdom": "gb",
   "United States": "us",

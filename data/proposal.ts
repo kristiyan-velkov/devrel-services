@@ -128,7 +128,8 @@ export const serviceCategories: { id: ServiceCategory; blurb: string }[] = [
   },
   {
     id: "Video",
-    blurb: "YouTube walkthroughs, native LinkedIn video and short clips.",
+    blurb:
+      "YouTube walkthroughs, native LinkedIn and X.com video, live video, and short clips.",
   },
   {
     id: "Social & website",
@@ -136,7 +137,8 @@ export const serviceCategories: { id: ServiceCategory; blurb: string }[] = [
   },
   {
     id: "Live sessions & events",
-    blurb: "Webinars, workshops, talks, meetups and AMAs. Conference fees are fee-only.",
+    blurb:
+      "Webinars, workshops, talks, meetups and AMAs. Conference fees are fee-only.",
   },
   {
     id: "Advisory",
@@ -173,6 +175,24 @@ export const services: Service[] = [
     category: "Conferences",
   },
   {
+    id: "conference-pack-5",
+    name: "Conference pack – 5 events",
+    description:
+      "5 appearances — talk + Bright Data T-shirt + promotion before, during and after at each event.",
+    unit: "per pack",
+    price: 10000,
+    category: "Conferences",
+  },
+  {
+    id: "conference-pack-10",
+    name: "Conference pack – 10 events",
+    description:
+      "10 appearances — talk + Bright Data T-shirt + promotion before, during and after at each event.",
+    unit: "per pack",
+    price: 15000,
+    category: "Conferences",
+  },
+  {
     id: "article",
     name: "Sponsored article / tutorial",
     description: "Technical article or tutorial, published and promoted.",
@@ -185,15 +205,16 @@ export const services: Service[] = [
     name: "GitHub demo",
     description: "Working demo repository with README and setup guide.",
     unit: "per repo",
-    price: 1500,
+    price: 1000,
     category: "Content",
   },
   {
     id: "recipe",
     name: "Recipe",
-    description: "Practical guide: a real problem and how to solve it with Bright Data.",
+    description:
+      "Practical guide: a real problem and how to solve it with Bright Data.",
     unit: "per recipe",
-    price: 1200,
+    price: 2000,
     category: "Content",
   },
   {
@@ -207,7 +228,8 @@ export const services: Service[] = [
   {
     id: "seo-refresh",
     name: "SEO content refresh",
-    description: "Update of a published article to keep it current and ranking.",
+    description:
+      "Update of a published article to keep it current and ranking.",
     unit: "per article",
     price: 600,
     category: "Content",
@@ -217,7 +239,7 @@ export const services: Service[] = [
     name: "Bulgarian translation",
     description: "Bulgarian adaptation of an article for the local audience.",
     unit: "per article",
-    price: 700,
+    price: 500,
     category: "Content",
   },
   {
@@ -225,7 +247,7 @@ export const services: Service[] = [
     name: "YouTube video",
     description: "Dedicated 10–20 min tutorial / walkthrough.",
     unit: "per video",
-    price: 3000,
+    price: 1500,
     category: "Video",
   },
   {
@@ -234,6 +256,23 @@ export const services: Service[] = [
     description: "Native 1–3 min product video.",
     unit: "per video",
     price: 1200,
+    category: "Video",
+  },
+  {
+    id: "x-video",
+    name: "X.com video",
+    description: "Native 1–3 min product video.",
+    unit: "per video",
+    price: 1500,
+    category: "Video",
+  },
+  {
+    id: "live-video",
+    name: "Live video",
+    description:
+      "Live product video / stream, priced separately from a webinar.",
+    unit: "per video",
+    price: 1500,
     category: "Video",
   },
   {
@@ -265,7 +304,7 @@ export const services: Service[] = [
     name: "Website banner",
     description: "Bright Data banner on the official website.",
     unit: "per month",
-    price: 750,
+    price: 1500,
     category: "Social & website",
   },
   {
@@ -355,7 +394,7 @@ export const services: Service[] = [
     description:
       "Challenge design, promotion, mentoring and judging. Prize pool provided by Bright Data.",
     unit: "per hackathon",
-    price: 4000,
+    price: 5000,
     category: "Partnership & community",
   },
   {
@@ -364,7 +403,7 @@ export const services: Service[] = [
     description:
       "Bright Data T-shirt, mentions, on-site networking and social posts at an event where Kristiyan speaks.",
     unit: "per event",
-    price: 2000,
+    price: 2500,
     category: "Partnership & community",
   },
   {
@@ -381,15 +420,16 @@ export const services: Service[] = [
     name: "Article ad placement",
     description: "Bright Data ad / link on all of Kristiyan's articles.",
     unit: "per month",
-    price: 1000,
+    price: 2000,
     category: "Partnership & community",
   },
   {
     id: "pakli",
     name: "Pakli.bg case study",
-    description: "Integration of 3 Bright Data scrapers into Pakli.bg + case study.",
+    description:
+      "Integration of 3 Bright Data scrapers into Pakli.bg + case study.",
     unit: "per project",
-    price: 7500,
+    price: 10000,
     category: "Case study",
   },
 ];
@@ -441,7 +481,7 @@ export const plans: Plan[] = [
     number: 2,
     name: "Growth",
     kicker: "Recommended",
-    monthly: 12000,
+    monthly: 11999,
     recommended: true,
     summary:
       "Core, plus 8 articles, 5 demos, LinkedIn, Front-end World, video, recipes, a month on the homepage, and Bengaluru.",
@@ -464,7 +504,7 @@ export const plans: Plan[] = [
     number: 3,
     name: "Pro",
     kicker: "Stage & workshops",
-    monthly: 15000,
+    monthly: 15999,
     recommended: false,
     summary:
       "Growth, plus more sessions, reports, video and recipes, one hands-on workshop, three conference talks and two hackathons. The banner runs for three months.",
@@ -486,7 +526,7 @@ export const plans: Plan[] = [
     number: 4,
     name: "Elite",
     kicker: "Strategic partner",
-    monthly: 20000,
+    monthly: 22999,
     recommended: false,
     summary:
       "Pro, stepped up: 16 articles, more video and live work, five conference talks, five hackathons, the banner for the whole term, and Bright Data on every other stage.",
@@ -496,7 +536,7 @@ export const plans: Plan[] = [
       "8 supporting GitHub demos",
       "7 live online sessions",
       "7 product feedback reports",
-      "12 LinkedIn posts",
+      "16 LinkedIn posts",
       "16 Front-end World publications",
       "10 YouTube videos",
       "6 Recipes",
@@ -535,7 +575,7 @@ export const planLines: PlanLine[] = [
     id: "demos",
     serviceId: "github-demo",
     label: "Supporting GitHub demos",
-    where: "GitHub — Kristiyan Velkov / BulgariTech public repositories (proposed)",
+    where: "GitHub — Kristiyan Velkov public repositories (proposed)",
     basis: "Agreement + proposed",
     quantities: { core: 3, growth: 5, pro: 5, elite: 8 },
   },
@@ -543,7 +583,8 @@ export const planLines: PlanLine[] = [
     id: "sessions",
     serviceId: "webinar",
     label: "Live online sessions",
-    where: "Online — platform TBD, e.g. YouTube Live / LinkedIn Live (proposed)",
+    where:
+      "Online — platform TBD, e.g. YouTube Live / LinkedIn Live (proposed)",
     basis: "Agreement + proposed",
     quantities: { core: 2, growth: 3, pro: 5, elite: 7 },
   },
@@ -559,7 +600,8 @@ export const planLines: PlanLine[] = [
     id: "linkedin",
     serviceId: "linkedin-post",
     label: "LinkedIn posts",
-    quantities: { core: 0, growth: 8, pro: 12, elite: 12 },
+    where: "31,000+ followers",
+    quantities: { core: 0, growth: 8, pro: 12, elite: 16 },
   },
   {
     id: "few",
@@ -588,7 +630,8 @@ export const planLines: PlanLine[] = [
   {
     id: "india",
     serviceId: "wad-india",
-    label: "WeAreDevelopers India – brand activation (talk, T-shirt, attendees & brands)",
+    label:
+      "WeAreDevelopers India – brand activation (talk, T-shirt, attendees & brands)",
     quantities: { core: 0, growth: 1, pro: 1, elite: 1 },
   },
   {
@@ -699,6 +742,73 @@ export function isNewPlanFeature(line: PlanLine, planId: PlanId): boolean {
   return quantity > line.quantities[previous];
 }
 
+/** Cell text for the scope comparison. Zero means the plan does not include the line. */
+export function compareQuantityLabel(lineId: string, quantity: number): string {
+  if (quantity === 0) return "Not included";
+  if (lineId === "india") return "Yes";
+  if (lineId === "banner" || lineId === "article-ad") return `${quantity} mo`;
+  return String(quantity);
+}
+
+function csvCell(value: string) {
+  if (/[",\n\r]/.test(value)) return `"${value.replaceAll('"', '""')}"`;
+  return value;
+}
+
+/** UTF-8 CSV of the scope comparison, including a BOM so Excel keeps the euro sign. */
+export function scopeComparisonCsv(): string {
+  const headers = [
+    `Included over ${TERM_MONTHS} months`,
+    "Basis",
+    "Where",
+    ...planOrder.map((id) => {
+      const plan = plans.find((item) => item.id === id);
+      const quote = quotes[id];
+      const recommended = plan?.recommended ? ", recommended" : "";
+      return `Plan ${plan?.number} ${plan?.name} (${formatEur(quote.monthly)}/month${recommended})`;
+    }),
+  ];
+
+  const rows: string[][] = [
+    ["BulgariTech × Bright Data — scope comparison"],
+    ["For", identity.counterparty],
+    ["From", `${identity.company} (${identity.person})`],
+    ["Term", identity.termLong],
+    ["Quantities", `Full ${TERM_MONTHS}-month term`],
+    ["Prepared", identity.dateLabel],
+    [],
+    headers,
+  ];
+
+  for (const line of planLines) {
+    rows.push([
+      line.label,
+      line.basis ?? "",
+      line.where ?? serviceById(line.serviceId).unit,
+      ...planOrder.map((id) => compareQuantityLabel(line.id, line.quantities[id])),
+    ]);
+  }
+
+  for (const row of includedInEveryPlan) {
+    rows.push([row.label, row.basis, row.where, ...planOrder.map(() => row.value)]);
+  }
+
+  rows.push([
+    "Price per month",
+    "",
+    "",
+    ...planOrder.map((id) => formatEur(quotes[id].monthly)),
+  ]);
+  rows.push([]);
+  rows.push([
+    "Hackathon prize pools are provided by Bright Data and are not in the fee. Conference fees are fee-only.",
+  ]);
+
+  return `\uFEFF${rows.map((row) => row.map(csvCell).join(",")).join("\r\n")}\r\n`;
+}
+
+export const scopeComparisonFilename = "BulgariTech-BrightData-scope-Nov2026-Mar2027.csv";
+
 export function planFeatureLabel(line: PlanLine, planId: PlanId): string {
   const quantity = line.quantities[planId];
   if (quantity === 0) return line.label;
@@ -708,14 +818,6 @@ export function planFeatureLabel(line: PlanLine, planId: PlanId): string {
   }
   return `${quantity} × ${line.label.replace(/^Sponsored /, "")}`;
 }
-
-export const planNotes = [
-  "Plan 1 – Core is the signed agreement scope and rate (€5,000/month): 4 articles, 3 GitHub demos, 2 live sessions, 1 private feedback report, promotion of the materials on X.com and Medium, and up to 2 revision rounds per deliverable. November–December 2026 is covered by the signed agreement; the term beyond 31 December 2026 requires an amendment or renewal.",
-  "Plan 2 – Growth is €12,000/month: 8 articles, 5 GitHub demos, 3 live sessions, 3 product feedback reports, 8 LinkedIn posts, 8 Front-end World publications, 3 YouTube videos, 3 Recipes, 1 month of website banner and the WeAreDevelopers India brand activation (25–26 Nov 2026).",
-  "Plan 3 – Pro adds volume on top of Growth: 5 live sessions, 5 product feedback reports, 5 YouTube videos, 4 Recipes, 3 months of website banner, WeAreDevelopers India, 1 hands-on workshop, 3 conference talks (e.g. React Day Berlin 2026 + 2 in 2027, TBD) and 2 hackathons.",
-  "Plan 4 – Elite is €20,000/month: 16 articles, 8 GitHub demos, 7 live sessions, 7 product feedback reports, 12 LinkedIn posts, 16 Front-end World publications, 10 YouTube videos, 6 Recipes, 5 months of website banner, WeAreDevelopers India, 3 workshops, 5 conference talks, 5 hackathons, a Bright Data ad/link on every article for 6 months, brand promotion at all other events (estimated 5) and 3 DevRel collaboration campaigns.",
-  "Hackathon prize pools are provided by Bright Data and are not included in the plan prices. Conference fees are fee-only (travel and accommodation covered by the speaker). Third-party DevRel fees, if any, are agreed separately.",
-] as const;
 
 export const agreement = {
   name: "Influencer Agreement",
@@ -731,7 +833,7 @@ export const agreement = {
     },
     {
       name: "Supporting GitHub demos",
-      where: "GitHub — Kristiyan Velkov / BulgariTech public repositories (proposed)",
+      where: "GitHub — Kristiyan Velkov public repositories (proposed)",
       quantity: "3",
       basis: "Agreement + proposed",
     },
@@ -743,13 +845,15 @@ export const agreement = {
     },
     {
       name: "Live online sessions",
-      where: "Online — platform TBD, e.g. YouTube Live / LinkedIn Live (proposed)",
-      quantity: "2",
+      where:
+        "Online — platform TBD, e.g. YouTube Live / LinkedIn Live (proposed)",
+      quantity: "1",
       basis: "Agreement + proposed",
     },
     {
       name: "Product feedback report",
-      where: "Not published — sent privately to Bright Data by email (proposed)",
+      where:
+        "Not published — sent privately to Bright Data by email (proposed)",
       quantity: "1",
       basis: "Proposed",
     },
@@ -778,7 +882,8 @@ export type CityId =
   | "sanjose"
   | "newyork"
   | "cancun"
-  | "bengaluru";
+  | "bengaluru"
+  | "singapore";
 
 export type ConferenceCity = {
   id: CityId;
@@ -789,16 +894,65 @@ export type ConferenceCity = {
 };
 
 export const cities: ConferenceCity[] = [
-  { id: "london", name: "London", country: "United Kingdom", lat: 51.51, lon: -0.13 },
-  { id: "vilnius", name: "Vilnius", country: "Lithuania", lat: 54.69, lon: 25.28 },
+  {
+    id: "london",
+    name: "London",
+    country: "United Kingdom",
+    lat: 51.51,
+    lon: -0.13,
+  },
+  {
+    id: "vilnius",
+    name: "Vilnius",
+    country: "Lithuania",
+    lat: 54.69,
+    lon: 25.28,
+  },
   { id: "gdansk", name: "Gdańsk", country: "Poland", lat: 54.35, lon: 18.65 },
-  { id: "amsterdam", name: "Amsterdam", country: "Netherlands", lat: 52.37, lon: 4.9 },
+  {
+    id: "amsterdam",
+    name: "Amsterdam",
+    country: "Netherlands",
+    lat: 52.37,
+    lon: 4.9,
+  },
   { id: "berlin", name: "Berlin", country: "Germany", lat: 52.52, lon: 13.41 },
-  { id: "istanbul", name: "Istanbul", country: "Türkiye", lat: 41.01, lon: 28.97 },
-  { id: "sanjose", name: "San José", country: "United States", lat: 37.34, lon: -121.89 },
-  { id: "newyork", name: "New York", country: "United States", lat: 40.71, lon: -74.01 },
+  {
+    id: "istanbul",
+    name: "Istanbul",
+    country: "Türkiye",
+    lat: 41.01,
+    lon: 28.97,
+  },
+  {
+    id: "sanjose",
+    name: "San José",
+    country: "United States",
+    lat: 37.34,
+    lon: -121.89,
+  },
+  {
+    id: "newyork",
+    name: "New York",
+    country: "United States",
+    lat: 40.71,
+    lon: -74.01,
+  },
   { id: "cancun", name: "Cancún", country: "Mexico", lat: 21.16, lon: -86.85 },
-  { id: "bengaluru", name: "Bengaluru", country: "India", lat: 12.97, lon: 77.59 },
+  {
+    id: "bengaluru",
+    name: "Bengaluru",
+    country: "India",
+    lat: 12.97,
+    lon: 77.59,
+  },
+  {
+    id: "singapore",
+    name: "Singapore",
+    country: "Singapore",
+    lat: 1.35,
+    lon: 103.82,
+  },
 ];
 
 export type SpeakingLocationGroup = {
@@ -819,7 +973,10 @@ export function inPersonSpeakingByLocation(): SpeakingLocationGroup[] {
     .map((city) => ({ city, events: map.get(city.id)! }));
 }
 
-export function speakingByCountry(): Array<{ country: string; locations: SpeakingLocationGroup[] }> {
+export function speakingByCountry(): Array<{
+  country: string;
+  locations: SpeakingLocationGroup[];
+}> {
   const groups = inPersonSpeakingByLocation();
   const map = new Map<string, SpeakingLocationGroup[]>();
   for (const group of groups) {
@@ -831,7 +988,9 @@ export function speakingByCountry(): Array<{ country: string; locations: Speakin
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([country, locations]) => ({
       country,
-      locations: locations.sort((a, b) => a.city.name.localeCompare(b.city.name)),
+      locations: locations.sort((a, b) =>
+        a.city.name.localeCompare(b.city.name),
+      ),
     }));
 }
 
@@ -932,7 +1091,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2025,
     when: "23–24 Oct 2025",
     place: "Online",
-    session: "Talk: Docker MCP – Packaging & Deploying AI Tools with Model Context Protocol",
+    session:
+      "Talk: Docker MCP – Packaging & Deploying AI Tools with Model Context Protocol",
     inPerson: onlineOnly,
     online: num(5000),
     source: "GitNation badge (via LinkedIn)",
@@ -994,7 +1154,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2026,
     when: "26–27 Mar 2026",
     place: "Online",
-    session: "Workshop: DevOps for JavaScript Developers – From Code to Production",
+    session:
+      "Workshop: DevOps for JavaScript Developers – From Code to Production",
     inPerson: onlineOnly,
     online: num(5000),
     source: "nodecongress.com",
@@ -1037,7 +1198,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2026,
     when: "11 & 15 Jun 2026",
     place: "Amsterdam & Online",
-    session: "Workshop: DevOps for Front-end Developers – From Local Code to Production",
+    session:
+      "Workshop: DevOps for Front-end Developers – From Local Code to Production",
     inPerson: num(1500),
     online: num(10000),
     source: "gitnation.com/sponsors",
@@ -1053,7 +1215,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2026,
     when: "11 Jun 2026",
     place: "Amsterdam",
-    session: "Talk: Training Engineers for AI Without Turning Them into Prompt Monkeys",
+    session:
+      "Talk: Training Engineers for AI Without Turning Them into Prompt Monkeys",
     inPerson: { display: "1,500 ⁴", counted: null },
     online: { display: "– ⁴", counted: null },
     source: "gitnation.com/sponsors",
@@ -1069,7 +1232,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2026,
     when: "11 & 15 Jun 2026",
     place: "Amsterdam & Online",
-    session: "Workshop: DevOps for Front-end Developers – From Local Code to Production",
+    session:
+      "Workshop: DevOps for Front-end Developers – From Local Code to Production",
     inPerson: { display: "1,500 ⁴", counted: null },
     online: { display: "10,000 ⁴", counted: null },
     source: "webengineeringsummit.com",
@@ -1084,7 +1248,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2026,
     when: "12 & 16 Jun 2026",
     place: "Amsterdam & Online",
-    session: "Workshop: DevOps for Front-end Developers – From Local Code to Production",
+    session:
+      "Workshop: DevOps for Front-end Developers – From Local Code to Production",
     inPerson: num(1500),
     online: num(10000),
     source: "reactsummit.com",
@@ -1142,7 +1307,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2026,
     when: "23 & 26 Oct 2026",
     place: "London & Online",
-    session: "Workshop (remote): DevOps for React Developers – From Code to Production",
+    session:
+      "Workshop (remote): DevOps for React Developers – From Code to Production",
     inPerson: num(800),
     online: num(5000),
     source: "reactadvanced.com",
@@ -1171,7 +1337,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2026,
     when: "17 & 20 Nov 2026",
     place: "New York & Online",
-    session: "Talk: React Won't Save You – Front-End Security Mistakes We Keep Shipping",
+    session:
+      "Talk: React Won't Save You – Front-End Security Mistakes We Keep Shipping",
     inPerson: num(800),
     online: num(10000),
     source: "reactsummit.us",
@@ -1199,7 +1366,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2026,
     when: "4 & 8 Dec 2026",
     place: "Berlin & Online",
-    session: "Talk: Beyond the Prompt – Production-Ready AI Features in Full-Stack React",
+    session:
+      "Talk: Beyond the Prompt – Production-Ready AI Features in Full-Stack React",
     inPerson: num(800),
     online: num(5000),
     source: "reactday.berlin",
@@ -1213,7 +1381,8 @@ export const speakingEvents: SpeakingEvent[] = [
     year: 2026,
     when: "4 & 7 Dec 2026",
     place: "Berlin & Online",
-    session: "Workshop: Building Production-Ready React Applications with Cursor AI",
+    session:
+      "Workshop: Building Production-Ready React Applications with Cursor AI",
     inPerson: num(500),
     online: num(5000),
     source: "aicodingsummit.com/berlin",
@@ -1221,6 +1390,22 @@ export const speakingEvents: SpeakingEvent[] = [
     websiteHref: "https://aicodingsummit.com/berlin",
     status: "upcoming",
     cityId: "berlin",
+  },
+  {
+    id: "react-summit-asia-2027",
+    name: "React Summit Asia 2027",
+    year: 2027,
+    when: "22 Mar 2027",
+    place: "Singapore · in person",
+    session: "Speaker (slot reserved)",
+    inPerson: num(1000),
+    online: unpublished,
+    source: "gitnation.com/landings/react-summit",
+    sourceHref: "https://gitnation.com/landings/react-summit",
+    websiteHref: "https://gitnation.com/landings/react-summit",
+    status: "upcoming",
+    cityId: "singapore",
+    note: "The biggest React conference in Asia. 30+ speakers. Organiser-stated audience of 1,000.",
   },
   {
     id: "vilnius-2027",
@@ -1239,7 +1424,10 @@ export const speakingEvents: SpeakingEvent[] = [
   },
 ];
 
-function sumCounted(status: "past" | "upcoming" | "all", field: "inPerson" | "online") {
+function sumCounted(
+  status: "past" | "upcoming" | "all",
+  field: "inPerson" | "online",
+) {
   return speakingEvents.reduce((sum, event) => {
     if (status !== "all" && event.status !== status) return sum;
     return sum + (event[field].counted ?? 0);
@@ -1267,7 +1455,8 @@ export const audience = {
     return this.pastCombined + this.upcomingCombined;
   },
   pastEvents: speakingEvents.filter((event) => event.status === "past").length,
-  upcomingEvents: speakingEvents.filter((event) => event.status === "upcoming").length,
+  upcomingEvents: speakingEvents.filter((event) => event.status === "upcoming")
+    .length,
   events2026: speakingEvents.filter((event) => event.year === 2026).length,
 };
 
@@ -1306,7 +1495,8 @@ export const publishingItems: PublishItem[] = [
   {
     date: "2026-11-10",
     deliverable: "Article / tutorial 1 of 4 (Core)",
-    topic: "Scraping JavaScript-heavy sites with Bright Data Scraping Browser + Playwright",
+    topic:
+      "Scraping JavaScript-heavy sites with Bright Data Scraping Browser + Playwright",
     channels: "Medium + Front-end World + LinkedIn",
     promotion: "X.com + Medium (Core) · LinkedIn (Plan 2)",
     tier: "core",
@@ -1333,7 +1523,8 @@ export const publishingItems: PublishItem[] = [
   {
     date: "2026-11-17",
     deliverable: "WeAreDevelopers India – pre-event post 1",
-    topic: "Speaking at WeAreDevelopers India – what I'll show with Bright Data",
+    topic:
+      "Speaking at WeAreDevelopers India – what I'll show with Bright Data",
     channels: "X.com, LinkedIn",
     promotion: "X.com + LinkedIn",
     tier: "growth",
@@ -1351,7 +1542,8 @@ export const publishingItems: PublishItem[] = [
   {
     date: "2026-11-19",
     deliverable: "Live online session 1 of 2",
-    topic: "Give your AI agent the web: Bright Data MCP Server + LLM, live demo + Q&A",
+    topic:
+      "Give your AI agent the web: Bright Data MCP Server + LLM, live demo + Q&A",
     channels: "Online – YouTube Live / LinkedIn Live (TBD)",
     promotion: "X.com + Medium",
     tier: "core",
@@ -1369,7 +1561,8 @@ export const publishingItems: PublishItem[] = [
   {
     date: "2026-11-25",
     deliverable: "WeAreDevelopers India – brand activation, day 1",
-    topic: "Talk + Bright Data T-shirt + conversations with attendees and brands; live posts",
+    topic:
+      "Talk + Bright Data T-shirt + conversations with attendees and brands; live posts",
     channels: "On site – BIEC, Bengaluru",
     promotion: "X.com + LinkedIn (live)",
     tier: "growth",
@@ -1396,20 +1589,24 @@ export const publishingItems: PublishItem[] = [
   {
     date: "2026-12-01",
     deliverable: "Article / tutorial 2 of 4 (Core)",
-    topic: "Web Unlocker in practice: reliable data from protected e-commerce sites",
+    topic:
+      "Web Unlocker in practice: reliable data from protected e-commerce sites",
     channels: "Medium + Front-end World + LinkedIn",
     promotion: "X.com + Medium (Core) · LinkedIn (Plan 2)",
     tier: "core",
-    status: "Planned · draft to Bright Data by Fri 20 Nov (early – conference travel)",
+    status:
+      "Planned · draft to Bright Data by Fri 20 Nov (early – conference travel)",
   },
   {
     date: "2026-12-01",
     deliverable: "React Day Berlin – pre-event post 1",
-    topic: "Speaking at React Day Berlin – production-ready AI features in React",
+    topic:
+      "Speaking at React Day Berlin – production-ready AI features in React",
     channels: "X.com, LinkedIn",
     promotion: "X.com + LinkedIn",
     tier: "addon",
-    status: "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
+    status:
+      "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
   },
   {
     date: "2026-12-03",
@@ -1418,16 +1615,19 @@ export const publishingItems: PublishItem[] = [
     channels: "X.com, LinkedIn",
     promotion: "X.com + LinkedIn",
     tier: "addon",
-    status: "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
+    status:
+      "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
   },
   {
     date: "2026-12-04",
     deliverable: "React Day Berlin 2026 – conference",
-    topic: "Talk “Beyond the Prompt…” + Bright Data T-shirt + on-site promotion (talk slot TBC)",
+    topic:
+      "Talk “Beyond the Prompt…” + Bright Data T-shirt + on-site promotion (talk slot TBC)",
     channels: "Berlin & Online",
     promotion: "X.com + LinkedIn (live)",
     tier: "addon",
-    status: "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
+    status:
+      "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
   },
   {
     date: "2026-12-07",
@@ -1436,7 +1636,8 @@ export const publishingItems: PublishItem[] = [
     channels: "Berlin & Online",
     promotion: "X.com + LinkedIn (live)",
     tier: "addon",
-    status: "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
+    status:
+      "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
   },
   {
     date: "2026-12-09",
@@ -1445,16 +1646,19 @@ export const publishingItems: PublishItem[] = [
     channels: "X.com, LinkedIn, Medium",
     promotion: "X.com + LinkedIn + Medium",
     tier: "addon",
-    status: "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
+    status:
+      "Proposed – €3,500 add-on, or included in Plan 3+ (1 of 3 conferences)",
   },
   {
     date: "2026-12-10",
     deliverable: "Article / tutorial 3 of 4 (Core)",
-    topic: "Real-time search data for apps and agents with Bright Data SERP API",
+    topic:
+      "Real-time search data for apps and agents with Bright Data SERP API",
     channels: "Medium + Front-end World + LinkedIn",
     promotion: "X.com + Medium (Core) · LinkedIn (Plan 2)",
     tier: "core",
-    status: "Planned · draft to Bright Data by Thu 3 Dec (early – conference travel)",
+    status:
+      "Planned · draft to Bright Data by Thu 3 Dec (early – conference travel)",
   },
   {
     date: "2026-12-10",
@@ -1477,7 +1681,8 @@ export const publishingItems: PublishItem[] = [
   {
     date: "2026-12-15",
     deliverable: "Live online session 2 of 2",
-    topic: "From raw web to insights: Web Scraper API + Datasets, live demo + Q&A",
+    topic:
+      "From raw web to insights: Web Scraper API + Datasets, live demo + Q&A",
     channels: "Online – YouTube Live / LinkedIn Live (TBD)",
     promotion: "X.com + Medium",
     tier: "core",
@@ -1486,7 +1691,8 @@ export const publishingItems: PublishItem[] = [
   {
     date: "2026-12-17",
     deliverable: "Article / tutorial 5 of 12 (Plan 2 extra)",
-    topic: "Choosing the right Bright Data proxy: residential vs datacenter vs ISP",
+    topic:
+      "Choosing the right Bright Data proxy: residential vs datacenter vs ISP",
     channels: "Medium + Front-end World + LinkedIn",
     promotion: "X.com + Medium (Core) · LinkedIn (Plan 2)",
     tier: "growth",
@@ -1526,7 +1732,8 @@ export const publishingItems: PublishItem[] = [
     channels: "Medium + Front-end World + LinkedIn",
     promotion: "X.com + Medium (Core) · LinkedIn (Plan 2)",
     tier: "core",
-    status: "Proposed – draft to Bright Data by Thu 7 Jan · requires amendment/renewal",
+    status:
+      "Proposed – draft to Bright Data by Thu 7 Jan · requires amendment/renewal",
   },
   {
     date: "2027-01-12",
@@ -1684,17 +1891,26 @@ export const publishingItems: PublishItem[] = [
 ];
 
 export const publishingMonths = [
-  { id: "2026-11", label: "November", yearLabel: "2026", year: 2026, month: 10 },
-  { id: "2026-12", label: "December", yearLabel: "2026", year: 2026, month: 11 },
+  {
+    id: "2026-11",
+    label: "November",
+    yearLabel: "2026",
+    year: 2026,
+    month: 10,
+  },
+  {
+    id: "2026-12",
+    label: "December",
+    yearLabel: "2026",
+    year: 2026,
+    month: 11,
+  },
   { id: "2027-01", label: "January", yearLabel: "2027", year: 2027, month: 0 },
   { id: "2027-02", label: "February", yearLabel: "2027", year: 2027, month: 1 },
   { id: "2027-03", label: "March", yearLabel: "2027", year: 2027, month: 2 },
 ] as const;
 
-export const tierMeta: Record<
-  PublishTier,
-  { label: string; hint: string }
-> = {
+export const tierMeta: Record<PublishTier, { label: string; hint: string }> = {
   core: {
     label: "Plan 1 · Core",
     hint: "Nov–Dec under the existing agreement. Jan–Mar needs an amendment.",
@@ -1721,7 +1937,7 @@ export const publishingIntro = {
 export const bonus = {
   deadlineLabel: "15 November 2026",
   deadlineIso: "2026-11-15",
-  recipeValue: 1200,
+  recipeValue: 2000,
   items: [
     {
       title: "One Recipe, free",
@@ -1791,8 +2007,7 @@ export const heroStats = [
 ] as const;
 
 export const whySection = {
-  lede:
-    "Developer relations engineer, international speaker, and author — reaching engineers through stages, newsletters, and code they can run the same day.",
+  lede: "Developer relations engineer, international speaker, and author — reaching engineers through stages, newsletters, and code they can run the same day.",
   onStage: {
     headline: "13+ major IT conferences",
     summary:
@@ -1804,8 +2019,7 @@ export const whySection = {
     ] as const,
   },
   whatShips: {
-    lead:
-      "Bright Data gets teachable assets — not slideware. Every major deliverable is built so a developer can fork, run, and adapt it.",
+    lead: "Bright Data gets teachable assets — not slideware. Every major deliverable is built so a developer can fork, run, and adapt it.",
     items: [
       "Runnable GitHub repositories linked from every article, recipe, and demo",
       "Medium tutorials, Front-end World publication, and LinkedIn distribution under Plan 2",
@@ -1815,16 +2029,14 @@ export const whySection = {
     ] as const,
   },
   exclusivity: {
-    lead:
-      "For the full term of this agreement, Kristiyan will not accept paid promotional work for direct competitors in the web data / proxy category:",
-    note:
-      "Organic mentions, comparisons in educational content, and impartial technical coverage remain fine — paid endorsements and sponsorships for these brands do not.",
+    lead: "For the full term of this agreement, Kristiyan will not accept paid promotional work for direct competitors in the web data / proxy category:",
+    note: "Organic mentions, comparisons in educational content, and impartial technical coverage remain fine — paid endorsements and sponsorships for these brands do not.",
   },
 } as const;
 
 export const reach = [
   {
-    figure: "31K",
+    figure: "31K+",
     label: "LinkedIn followers",
     detail: "Daily posts on AI, front-end, and developer tooling",
     social: socialLinks.linkedin,
@@ -1842,7 +2054,7 @@ export const reach = [
     social: socialLinks.frontendWorld,
   },
   {
-    figure: "250K",
+    figure: "250K+",
     label: "newsletter reach / year",
     detail: "Front-end World — editorial reach to front-end engineers",
     social: socialLinks.frontendWorld,
@@ -1852,15 +2064,15 @@ export const reach = [
 export const credentials = [
   {
     label: "DevRel",
-    headline: "Developer relations that turns interest into adoption",
+    headline: "Professional with strong technical knowledge",
     detail:
-      "Launch narratives, demo apps, and education tracks designed for engineers evaluating Bright Data — from first API call to production patterns.",
+      "AI, application security, front-end, DevOps, React, TypeScript, and Docker. Launch narratives, demo apps, and education tracks designed for engineers evaluating Bright Data — from first API call to production patterns.",
   },
   {
     label: "Stage",
     headline: "International tech speaker",
     detail:
-      "Regular slots at major IT conferences across Europe and online — workshops and talks where audiences expect working code, not marketing decks.",
+      "Regular slots at major IT conferences across Europe and online — workshops and talks where audiences expect working code, not marketing decks. Biggest IT events, including WeAreDevelopers.",
   },
   {
     label: "Community",
@@ -1872,7 +2084,11 @@ export const credentials = [
     label: "Books",
     headline: "4 published technical books",
     detail:
-      "Including Mastering React.js Interviews and Mastering TypeScript Core Utility Types — proof of long-form teaching at scale.",
+      "Mastering React.js Interviews, Mastering TypeScript Core Utility Types, and Docker for React.js Developers — sold to thousands of people. Long-form teaching at scale, not slideware.",
+    links: [
+      { label: "kristiyanvelkov.com", href: "https://kristiyanvelkov.com/" },
+      { label: "dockerfrontend.com", href: "https://dockerfrontend.com/" },
+    ],
   },
   {
     label: "Practice",

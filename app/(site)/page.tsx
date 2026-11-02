@@ -28,7 +28,7 @@ export default function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <SectionRail />
-      <p className="mx-auto hidden max-w-6xl px-5 pt-6 text-sm print:block">
+      <p className="site-wrap hidden px-5 pt-6 text-sm print:block">
         {identity.company} ({identity.person}) — DevRel partnership proposal for {identity.counterparty}.{" "}
         {identity.dateLabel}. {identity.termLong}. All prices EUR. Not an official Bright Data website.
       </p>

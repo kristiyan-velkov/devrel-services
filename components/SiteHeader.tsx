@@ -16,7 +16,7 @@ export function SiteHeader() {
 
   return (
     <header className="no-print sticky top-0 z-40 border-b border-line/80 bg-card/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 md:px-8">
+      <div className="site-wrap flex items-center justify-between gap-4 px-5 py-3 md:px-8">
         <a
           href="/"
           className="flex min-w-0 items-center rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue"

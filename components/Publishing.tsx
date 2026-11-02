@@ -31,7 +31,7 @@ export function Publishing() {
 
   return (
     <section id="publishing" className="print-break scroll-mt-28 py-20 md:py-28" aria-labelledby="publishing-title">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
+      <div className="site-wrap px-5 md:px-8">
         <SectionHeading
           id="publishing-title"
           index="06"
